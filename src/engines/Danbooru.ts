@@ -1,7 +1,7 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 
-export default class Gelbooru implements ScrapeEngine {
+export default class Danbooru implements ScrapeEngine {
     name = "danbooru";
 
     canImport(url: Location): boolean {
