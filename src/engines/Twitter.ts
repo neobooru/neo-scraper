@@ -9,10 +9,7 @@ export default class Twitter implements ScrapeEngine {
     name = "twitter";
 
     canImport(url: Location): boolean {
-        return (
-            url.host == "danbooru.donmai.us" ||
-            url.host == "safebooru.donmai.us"
-        );
+        return url.host == "twitter.com";
     }
 
     scrapeDocument(document: Document): ScrapeResult {
@@ -35,7 +32,7 @@ export default class Twitter implements ScrapeEngine {
         if (mediaImageElements.length > 0) {
             post.imageUrl = getOriginalImageUrl((mediaImageElements[0] as HTMLImageElement).src);
         }
-        
+
         if (post.imageUrl) {
             result.posts.push(post);
         }
