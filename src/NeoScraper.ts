@@ -13,7 +13,8 @@ export default class NeoScraper {
                 new engines.Moebooru(),
                 new engines.Reddit(),
                 new engines.Shimmie2(),
-                new engines.Twitter()
+                new engines.Twitter(),
+                new engines.Zerochan(),
             );
             this.fallbackEngine = new engines.Fallback();
         }
@@ -30,7 +31,7 @@ export default class NeoScraper {
 
         if (allowFallbackEngine) {
             if (!this.fallbackEngine) {
-                console.error("this.fallbackEngine is unset!");
+                console.error("NeoScraper.fallbackEngine is unset!");
             } else {
                 res.results.push(this.fallbackEngine.scrapeDocument(document));
             }
