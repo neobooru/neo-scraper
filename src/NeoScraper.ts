@@ -12,6 +12,7 @@ export default class NeoScraper {
                 new engines.Gelbooru(),
                 new engines.Moebooru(),
                 new engines.Reddit(),
+                new engines.SankakuComplex(),
                 new engines.Shimmie2(),
                 new engines.Twitter(),
                 new engines.Zerochan(),
