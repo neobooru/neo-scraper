@@ -4,7 +4,10 @@ export default class Shimmie2 implements ScrapeEngine {
     name = "shimmie2";
 
     canImport(url: Location): boolean {
-        return url.host == "rule34.paheal.net";
+        return (
+            url.host == "rule34.paheal.net" ||
+            url.host == "rule34hentai.net"
+        );
     }
 
     scrapeDocument(document: Document): ScrapeResult {
@@ -19,6 +22,11 @@ export default class Shimmie2 implements ScrapeEngine {
 
         if (originalImageElements.length > 0) {
             post.imageUrl = originalImageElements[0].href;
+        } else {
+            const dowloadBtnEl = document.querySelector("a[download]") as HTMLAnchorElement;
+            if (dowloadBtnEl) {
+                post.imageUrl = dowloadBtnEl.href;
+            }
         }
 
         // Set safety
@@ -32,7 +40,7 @@ export default class Shimmie2 implements ScrapeEngine {
         post.tags = Array.from(document.querySelectorAll("a.tag_name"))
             .map(x => (x as HTMLAnchorElement).innerText.toLowerCase())
             .map(x => new ScrapedTag(x));
-        
+
         if (post.imageUrl) {
             result.posts.push(post);
         }
