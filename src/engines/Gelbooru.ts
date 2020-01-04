@@ -7,6 +7,8 @@ enum Version {
     v025, // 0.2.5
 }
 
+type CategoryMap = Record<string, TagCategory>;
+
 export default class Gelbooru implements ScrapeEngine {
     name = "gelbooru";
 
@@ -14,7 +16,8 @@ export default class Gelbooru implements ScrapeEngine {
         return (
             url.host == "safebooru.org" ||
             url.host == "gelbooru.com" ||
-            url.host == "rule34.xxx"
+            url.host == "rule34.xxx" ||
+            url.host == "tbib.org"
         );
     }
 
@@ -24,6 +27,7 @@ export default class Gelbooru implements ScrapeEngine {
         switch (document.location.host) {
             case "safebooru.org":
             case "rule34.xxx":
+            case "tbib.org":
                 version = Version.v020;
                 break;
             case "gelbooru.com":
@@ -111,19 +115,19 @@ export default class Gelbooru implements ScrapeEngine {
 
                 let category: TagCategory | undefined;
 
-                switch (el.className) {
-                    case "tag-type-copyright":
-                        category = "copyright";
+                const classNameToCategoryMap: CategoryMap = {
+                    "tag-type-copyright": "copyright",
+                    "tag-type-character": "character",
+                    "tag-type-artist": "artist",
+                    "tag-type-metadata": "meta"
+                };
+
+                // Loop over all classes, because some websites use multiple. E.g. `class="tag tag-type-copyright"`
+                for (const className of el.classList) {
+                    if (classNameToCategoryMap[className]) {
+                        category = classNameToCategoryMap[className];
                         break;
-                    case "tag-type-character":
-                        category = "character";
-                        break;
-                    case "tag-type-artist":
-                        category = "artist";
-                        break;
-                    case "tag-type-metadata":
-                        category = "meta";
-                        break;
+                    }
                 }
 
                 let tag = new ScrapedTag(tagName, category);
