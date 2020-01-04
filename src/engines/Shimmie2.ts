@@ -38,7 +38,7 @@ export default class Shimmie2 implements ScrapeEngine {
         // Tags might not match with other booru-likes, but that is for the user to figure out.
         // For example by deleting 'wrong' tags or setting up some aliases in szurubooru.
         post.tags = Array.from(document.querySelectorAll("a.tag_name"))
-            .map(x => (x as HTMLAnchorElement).innerText.toLowerCase())
+            .map(x => (x as HTMLAnchorElement).innerText)
             .map(x => new ScrapedTag(x));
 
         result.tryAddPost(post);

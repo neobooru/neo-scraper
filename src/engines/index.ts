@@ -5,5 +5,6 @@ export { default as Moebooru } from "./Moebooru";
 export { default as Reddit } from "./Reddit";
 export { default as SankakuComplex } from "./SankakuComplex";
 export { default as Shimmie2 } from "./Shimmie2";
+export { default as Shuushuu } from "./Shuushuu";
 export { default as Twitter } from "./Twitter";
 export { default as Zerochan } from "./Zerochan";

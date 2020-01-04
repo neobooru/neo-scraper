@@ -12,7 +12,7 @@ export class ScrapedTag {
     category?: TagCategory;
 
     constructor(name: string, category?: TagCategory) {
-        this.name = name.replace(/\s/g, "_"); // Replace all spaces with underscores
+        this.name = name.replace(/\s/g, "_").toLowerCase(); // Replace all spaces with underscores and make everything lowercase
         this.category = category;
     }
 }
