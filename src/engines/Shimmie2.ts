@@ -41,9 +41,7 @@ export default class Shimmie2 implements ScrapeEngine {
             .map(x => (x as HTMLAnchorElement).innerText.toLowerCase())
             .map(x => new ScrapedTag(x));
 
-        if (post.imageUrl) {
-            result.posts.push(post);
-        }
+        result.tryAddPost(post);
 
         return result;
     }

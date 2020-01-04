@@ -25,6 +25,14 @@ export class ScrapeResult {
     constructor(engine: string) {
         this.engine = engine;
     }
+
+    tryAddPost(post: ScrapedPost) {
+        if (!post.imageUrl) {
+            console.log(`[${this.engine}] Not adding post because imageUrl is unset!`);
+        } else {
+            this.posts.push(post);
+        }
+    }
 }
 
 export class ScrapeResults {

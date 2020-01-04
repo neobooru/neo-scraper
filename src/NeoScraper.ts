@@ -26,6 +26,7 @@ export default class NeoScraper {
 
         for (const engine of this.engines) {
             if (ignoreCanImport || engine.canImport(document.location)) {
+                console.log("Using engine: " + engine.name);
                 res.results.push(engine.scrapeDocument(document));
             }
         }
@@ -34,9 +35,12 @@ export default class NeoScraper {
             if (!this.fallbackEngine) {
                 console.error("NeoScraper.fallbackEngine is unset!");
             } else {
+                console.log("Using fallback engine");
                 res.results.push(this.fallbackEngine.scrapeDocument(document));
             }
         }
+
+        console.dir(res);
 
         return res;
     }

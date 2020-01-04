@@ -74,9 +74,7 @@ export default class SankakuComplex implements ScrapeEngine {
             }
         }
 
-        if (post.imageUrl) {
-            result.posts.push(post);
-        }
+        result.tryAddPost(post);
 
         return result;
     }
