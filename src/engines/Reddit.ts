@@ -25,9 +25,7 @@ export default class Reddit implements ScrapeEngine {
             post.imageUrl = (newLinkElements[0] as HTMLAnchorElement).href;
         }
 
-        if (post.imageUrl) {
-            result.posts.push(post);
-        }
+        result.tryAddPost(post);
 
         return result;
     }

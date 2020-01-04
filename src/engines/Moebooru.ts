@@ -88,10 +88,7 @@ export default class Moebooru implements ScrapeEngine {
             post.tags.push(tag);
         }
         
-        
-        if (post.imageUrl) {
-            result.posts.push(post);
-        }
+        result.tryAddPost(post);
 
         return result;
     }

@@ -16,7 +16,14 @@ export default class Zerochan implements ScrapeEngine {
         // Set image url
         const previewElements = document.getElementsByClassName("preview");
         if (previewElements.length > 0) {
+            // The preview element only exists when there is a larger size available. Preview's img element contains a downscaled version.
             post.imageUrl = (previewElements[0] as HTMLAnchorElement).href;
+        } else {
+            // When there is no larger version available just use the displayed version.
+            const imgElement = document.querySelector("img[title='No larger size available']") as HTMLImageElement;
+            if (imgElement) {
+                post.imageUrl = imgElement.src;
+            }
         }
 
         // Set rating
@@ -59,9 +66,7 @@ export default class Zerochan implements ScrapeEngine {
             }
         }
 
-        if (post.imageUrl) {
-            result.posts.push(post);
-        }
+        result.tryAddPost(post);
 
         return result;
     }

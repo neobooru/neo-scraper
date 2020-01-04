@@ -33,9 +33,7 @@ export default class Twitter implements ScrapeEngine {
             post.imageUrl = getOriginalImageUrl((mediaImageElements[0] as HTMLImageElement).src);
         }
 
-        if (post.imageUrl) {
-            result.posts.push(post);
-        }
+        result.tryAddPost(post);
 
         return result;
     }
