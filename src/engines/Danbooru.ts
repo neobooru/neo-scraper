@@ -58,16 +58,16 @@ export default class Danbooru implements ScrapeEngine {
 
             let category: TagCategory | undefined;
             switch (tagElement.className) {
-                case "category-3":
+                case "tag-type-3":
                     category = "copyright";
                     break;
-                case "category-4":
+                case "tag-type-4":
                     category = "character";
                     break;
-                case "category-1":
+                case "tag-type-1":
                     category = "artist";
                     break;
-                case "category-5":
+                case "tag-type-5":
                     category = "meta";
                     break;
             }
