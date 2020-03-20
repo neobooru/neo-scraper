@@ -2,6 +2,7 @@ export { default as Danbooru } from "./Danbooru";
 export { default as Fallback } from "./Fallback";
 export { default as Gelbooru } from "./Gelbooru";
 export { default as Moebooru } from "./Moebooru";
+export { default as Pixiv } from "./Pixiv";
 export { default as Reddit } from "./Reddit";
 export { default as SankakuComplex } from "./SankakuComplex";
 export { default as Shimmie2 } from "./Shimmie2";
