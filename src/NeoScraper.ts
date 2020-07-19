@@ -9,6 +9,7 @@ export default class NeoScraper {
         if (useDefaultEngines) {
             this.engines.push(
                 new engines.Danbooru(),
+                new engines.e621(),
                 new engines.Gelbooru(),
                 new engines.Moebooru(),
                 new engines.Pixiv(),

@@ -1,4 +1,5 @@
 export { default as Danbooru } from "./Danbooru";
+export { default as e621 } from "./e621";
 export { default as Fallback } from "./Fallback";
 export { default as Gelbooru } from "./Gelbooru";
 export { default as Moebooru } from "./Moebooru";
