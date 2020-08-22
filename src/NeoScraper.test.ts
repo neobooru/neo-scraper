@@ -63,7 +63,7 @@ test("get gelbooru.com post 4925055", async () => {
     const res = await scrapeUrl(source);
     expect(res.posts.length).toBe(1);
     expect(res.posts[0].source).toBe(source);
-    expect(res.posts[0].imageUrl).toBe("https://img2.gelbooru.com//images/3d/03/3d03f6858637805d6473d390a4b1d8c8.jpg");
+    expect(res.posts[0].imageUrl).toBe("https://img2.gelbooru.com/images/3d/03/3d03f6858637805d6473d390a4b1d8c8.jpg");
 });
 
 test("get rule34.xxx post 2740994", async () => {
@@ -71,7 +71,7 @@ test("get rule34.xxx post 2740994", async () => {
     const res = await scrapeUrl(source);
     expect(res.posts.length).toBe(1);
     expect(res.posts[0].source).toBe(source);
-    expect(res.posts[0].imageUrl).toBe("https://img.rule34.xxx//images/2472/35bf31c98f53a369c047baf9bae496fb.jpeg");
+    expect(res.posts[0].imageUrl).toContain(".rule34.xxx//images/2472/35bf31c98f53a369c047baf9bae496fb.jpeg");
 });
 
 // Moebooru
@@ -85,7 +85,7 @@ test("get yande.re post 438510", async () => {
 });
 
 test("get konachan.com post 289968", async () => {
-    var source = "http://konachan.com/post/show/289968/ahri_-league_of_legends-akali-animal_ears-blonde_h";
+    var source = "https://konachan.com/post/show/289968/ahri_-league_of_legends-akali-animal_ears-blonde_h";
     const res = await scrapeUrl(source);
     expect(res.posts.length).toBe(1);
     expect(res.posts[0].source).toBe(source);
@@ -117,7 +117,7 @@ test("get rule34.paheal.net post 2505982", async () => {
     const res = await scrapeUrl(source);
     expect(res.posts.length).toBe(1);
     expect(res.posts[0].source).toBe(source);
-    expect(res.posts[0].imageUrl).toBe("https://pansy.paheal.net/_images/15427ab5ed2cddbeef947e30f5c9cab6/2505982%20-%20Kai%27Sa%20League_of_Legends%20lawzilla.png");
+    expect(res.posts[0].imageUrl).toContain(".paheal.net/_images/15427ab5ed2cddbeef947e30f5c9cab6/2505982%20-%20Kai%27Sa%20League_of_Legends%20lawzilla.png");
 });
 
 // Twitter
