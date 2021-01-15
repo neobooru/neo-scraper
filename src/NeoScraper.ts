@@ -26,7 +26,7 @@ export default class NeoScraper {
     }
 
     scrapeDocument(document: Document, engines: string[] | null = null, allowFallbackEngine: boolean = false, ignoreCanImport: boolean = false): ScrapeResults {
-        let res = new ScrapeResults();
+        const res = new ScrapeResults();
 
         for (const engine of this.engines) {
             if (ignoreCanImport || engine.canImport(document.location)) {

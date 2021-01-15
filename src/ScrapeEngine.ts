@@ -1,56 +1,59 @@
 import { TagCategory, SafetyRating } from "./BooruTypes";
 
 export class ScrapedPost {
-    imageUrl: string = "";
-    source: string = "";
-    rating: SafetyRating = "safe";
-    tags: ScrapedTag[] = [];
+  imageUrl: string = "";
+  pageUrl: string = "";
+  rating: SafetyRating = "safe";
+  tags: ScrapedTag[] = [];
+  source: string | undefined = undefined;
 }
 
 export class ScrapedTag {
-    name: string = "";
-    category?: TagCategory;
+  name: string = "";
+  category?: TagCategory;
 
-    constructor(name: string, category?: TagCategory) {
-        this.name = name.replace(/\s/g, "_").toLowerCase(); // Replace all spaces with underscores and make everything lowercase
-        this.category = category;
-    }
+  constructor(name: string, category?: TagCategory) {
+    this.name = name.replace(/\s/g, "_").toLowerCase(); // Replace all spaces with underscores and make everything lowercase
+    this.category = category;
+  }
 }
 
 export class ScrapeResult {
-    engine: string;
-    description: string = "";
-    posts: ScrapedPost[] = [];
+  engine: string;
+  description: string = "";
+  posts: ScrapedPost[] = [];
 
-    constructor(engine: string) {
-        this.engine = engine;
-    }
+  constructor(engine: string) {
+    this.engine = engine;
+  }
 
-    tryAddPost(post: ScrapedPost) {
-        if (!post.imageUrl) {
-            console.log(`[${this.engine}] Not adding post because imageUrl is unset!`);
-        } else {
-            this.posts.push(post);
-        }
+  tryAddPost(post: ScrapedPost) {
+    if (!post.imageUrl) {
+      console.log(
+        `[${this.engine}] Not adding post because imageUrl is unset!`
+      );
+    } else {
+      this.posts.push(post);
     }
+  }
 }
 
 export class ScrapeResults {
-    results: ScrapeResult[] = [];
+  results: ScrapeResult[] = [];
 
-    get posts(): ScrapedPost[] {
-        var posts: ScrapedPost[] = [];
+  get posts(): ScrapedPost[] {
+    var posts: ScrapedPost[] = [];
 
-        for (var res of this.results) {
-            posts = posts.concat(res.posts);
-        }
-
-        return posts;
+    for (var res of this.results) {
+      posts = posts.concat(res.posts);
     }
+
+    return posts;
+  }
 }
 
 export interface ScrapeEngine {
-    name: string;
-    canImport(url: Location): boolean;
-    scrapeDocument(document: Document): ScrapeResult;
+  name: string;
+  canImport(url: Location): boolean;
+  scrapeDocument(document: Document): ScrapeResult;
 }

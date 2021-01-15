@@ -15,7 +15,7 @@ export default class Twitter implements ScrapeEngine {
     scrapeDocument(document: Document): ScrapeResult {
         let result = new ScrapeResult(this.name);
         let post = new ScrapedPost();
-        post.source = document.location.href;
+        post.pageUrl = document.location.href;
 
         // Set image url
         // When clicked on post (not fullscreen, with post text etc)

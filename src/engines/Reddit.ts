@@ -10,7 +10,7 @@ export default class Reddit implements ScrapeEngine {
     scrapeDocument(document: Document): ScrapeResult {
         let result = new ScrapeResult(this.name);
         let post = new ScrapedPost();
-        post.source = document.location.href;
+        post.pageUrl = document.location.href;
 
         // Set image url
         // For old.reddit.com

@@ -18,7 +18,7 @@ export default class Pixiv implements ScrapeEngine {
         
         for (const imgLink of imgLinks) {
             let post = new ScrapedPost();
-            post.source = document.location.href;
+            post.pageUrl = document.location.href;
             post.imageUrl = imgLink.href;
             result.tryAddPost(post);
         }
