@@ -5,7 +5,7 @@ export default class e621 implements ScrapeEngine {
   name = "e621";
 
   canImport(url: Location): boolean {
-    return url.host == "e621.net";
+    return url.host == "e621.net" || url.host == "e926.net";
   }
 
   scrapeDocument(document: Document): ScrapeResult {
