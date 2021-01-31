@@ -1,5 +1,6 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
+import { guessContentType } from "../Utility";
 
 export default class Zerochan implements ScrapeEngine {
   name = "zerochan";
@@ -17,14 +18,22 @@ export default class Zerochan implements ScrapeEngine {
     const previewElements = document.getElementsByClassName("preview");
     if (previewElements.length > 0) {
       // The preview element only exists when there is a larger size available. Preview's img element contains a downscaled version.
-      post.imageUrl = (previewElements[0] as HTMLAnchorElement).href;
+      post.contentUrl = (previewElements[0] as HTMLAnchorElement).href;
     } else {
       // When there is no larger version available just use the displayed version.
       const imgElement = document.querySelector("img[title='No larger size available']") as HTMLImageElement;
       if (imgElement) {
-        post.imageUrl = imgElement.src;
+        post.contentUrl = imgElement.src;
       }
     }
+
+    if (post.contentUrl == undefined) {
+      // No point in continuing when we don't have an image.
+      return result;
+    }
+
+    // Set content type
+    post.contentType = guessContentType(post.contentUrl);
 
     // Set rating
     post.rating = "safe";

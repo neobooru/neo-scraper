@@ -1,11 +1,15 @@
 import { TagCategory, SafetyRating } from "./BooruTypes";
 
+export type ContentType = "image" | "video";
+
 export class ScrapedPost {
-  imageUrl: string = "";
+  contentUrl: string = "";
   pageUrl: string = "";
+  contentType: ContentType = "image";
   rating: SafetyRating = "safe";
   tags: ScrapedTag[] = [];
   source: string | undefined = undefined;
+  referrer: string | undefined = undefined;
 }
 
 export class ScrapedTag {
@@ -28,10 +32,8 @@ export class ScrapeResult {
   }
 
   tryAddPost(post: ScrapedPost) {
-    if (!post.imageUrl) {
-      console.log(
-        `[${this.engine}] Not adding post because imageUrl is unset!`
-      );
+    if (!post.contentUrl) {
+      console.log(`[${this.engine}] Not adding post because imageUrl is unset!`);
     } else {
       this.posts.push(post);
     }

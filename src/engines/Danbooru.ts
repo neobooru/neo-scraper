@@ -1,5 +1,6 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
+import { guessContentType } from "../Utility";
 
 export default class Danbooru implements ScrapeEngine {
   name = "danbooru";
@@ -19,7 +20,17 @@ export default class Danbooru implements ScrapeEngine {
     );
 
     if (originalImageElements.length > 0) {
-      post.imageUrl = (originalImageElements[0] as HTMLAnchorElement).href;
+      post.contentUrl = (originalImageElements[0] as HTMLAnchorElement).href;
+    } else {
+      // No point in continuing when we don't have an image.
+      return result;
+    }
+
+    // Set content type
+    if (document.querySelector(".image-container > video") != null) {
+      post.contentType = "video";
+    } else {
+      post.contentType = guessContentType(post.contentUrl);
     }
 
     // Set rating

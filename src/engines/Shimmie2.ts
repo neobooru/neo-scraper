@@ -1,4 +1,5 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { guessContentType } from "../Utility";
 
 export default class Shimmie2 implements ScrapeEngine {
   name = "shimmie2";
@@ -18,13 +19,20 @@ export default class Shimmie2 implements ScrapeEngine {
       .filter((x) => x.innerText == "Image Only" || x.innerText == "File Only");
 
     if (originalImageElements.length > 0) {
-      post.imageUrl = originalImageElements[0].href;
+      post.contentUrl = originalImageElements[0].href;
     } else {
       const dowloadBtnEl = document.querySelector("a[download]") as HTMLAnchorElement;
       if (dowloadBtnEl) {
-        post.imageUrl = dowloadBtnEl.href;
+        post.contentUrl = dowloadBtnEl.href;
       }
     }
+
+    if (post.contentUrl == undefined) {
+      return result;
+    }
+
+    // Set content type
+    post.contentType = guessContentType(post.contentUrl);
 
     // Set safety
     post.rating = "unsafe"; // Usually it is unsafe

@@ -1,5 +1,6 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
+import { guessContentType } from "../Utility";
 
 // Small hack to avoid screwing with semver
 enum Version {
@@ -44,7 +45,18 @@ export default class Gelbooru implements ScrapeEngine {
     Array.from(document.querySelectorAll("li > a"))
       .map((x) => x as HTMLAnchorElement)
       .filter((x) => x && x.innerText == "Original image")
-      .map((x) => (post.imageUrl = x.href));
+      .map((x) => (post.contentUrl = x.href));
+
+    if (post.contentUrl == undefined) {
+      return result;
+    }
+
+    // Set content type
+    if (document.getElementById("gelcomVideoPlayer") != null) {
+      post.contentType = "video";
+    } else {
+      post.contentType = guessContentType(post.contentUrl);
+    }
 
     // Set rating and source
     const regex = new RegExp("(.*): (.*)");

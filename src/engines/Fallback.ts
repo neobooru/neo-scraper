@@ -1,4 +1,12 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost } from "../ScrapeEngine";
+import { ScrapeEngine, ScrapeResult, ScrapedPost, ContentType } from "../ScrapeEngine";
+
+class MediaElement {
+  constructor(
+    public readonly contentType: ContentType,
+    public readonly contentUrl: string,
+    public readonly size: number
+  ) {}
+}
 
 export default class Fallback implements ScrapeEngine {
   name = "fallback";
@@ -8,21 +16,30 @@ export default class Fallback implements ScrapeEngine {
   }
 
   scrapeDocument(document: Document): ScrapeResult {
-    function getSize(el: HTMLImageElement) {
-      return el.width * el.height;
-    }
+    // Get all img elements.
+    const largestImgElement = Array.from(document.getElementsByTagName("img")).map(
+      (x) => new MediaElement("image", x.src, x.width * x.height)
+    );
 
-    // Get largest img element on this page
-    const largestImgElement = Array.from(document.getElementsByTagName("img")).reduce((a, b) =>
-      getSize(a) > getSize(b) ? a : b
+    // Get all video elements that have at least one source (child node).
+    const largestVideoElement = Array.from(document.getElementsByTagName("video")).flatMap((x) => {
+      const source = x.querySelector("source")?.src;
+      if (source != undefined) return new MediaElement("video", source, x.videoWidth * x.videoHeight);
+      return []; // Skip this item because it does not have a source.
+    });
+
+    // Get the largest media element.
+    const largestMediaElement = [...largestImgElement, ...largestVideoElement].reduce((a, b) =>
+      a?.size > b?.size ? a : b
     );
 
     let result = new ScrapeResult(this.name);
 
-    if (largestImgElement) {
+    if (largestMediaElement) {
       let post = new ScrapedPost();
       post.pageUrl = document.location.href;
-      post.imageUrl = largestImgElement.src;
+      post.contentUrl = largestMediaElement.contentUrl;
+      post.contentType = largestMediaElement.contentType;
       result.posts.push(post);
     }
 

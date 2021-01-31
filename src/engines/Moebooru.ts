@@ -1,5 +1,6 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
+import { guessContentType } from "../Utility";
 
 export default class Moebooru implements ScrapeEngine {
   name = "moebooru";
@@ -16,8 +17,14 @@ export default class Moebooru implements ScrapeEngine {
     // Set image url
     const originalImageElement = document.querySelector("#highres") as HTMLAnchorElement;
     if (originalImageElement) {
-      post.imageUrl = originalImageElement.href;
+      post.contentUrl = originalImageElement.href;
+    } else {
+      // No point in continuing when we don't have an image.
+      return result;
     }
+
+    // Set content type
+    post.contentType = guessContentType(post.contentUrl);
 
     // Set rating and source
     // Same method as Gelbooru v025.
