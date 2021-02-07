@@ -57,7 +57,7 @@ export default class Danbooru implements ScrapeEngine {
     }
 
     // Set tags
-    const tagElements = Array.from(document.querySelectorAll("#tag-list > ul > li")).map((x) => x as HTMLLIElement);
+    const tagElements = Array.from(document.querySelectorAll("#tag-list ul li")).map((x) => x as HTMLLIElement);
     for (const tagElement of tagElements) {
       let tagName: string | undefined;
       const tagNameElement = tagElement.querySelector(".search-tag") as HTMLAnchorElement;
