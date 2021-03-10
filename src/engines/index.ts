@@ -3,6 +3,7 @@ export { default as Danbooru } from "./Danbooru";
 export { default as e621 } from "./e621";
 export { default as Fallback } from "./Fallback";
 export { default as Gelbooru } from "./Gelbooru";
+export { default as Inkbunny } from "./Inkbunny";
 export { default as Moebooru } from "./Moebooru";
 export { default as Pixiv } from "./Pixiv";
 export { default as Reddit } from "./Reddit";

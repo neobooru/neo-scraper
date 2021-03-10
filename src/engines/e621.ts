@@ -12,7 +12,7 @@ export default class e621 implements ScrapeEngine {
     let result = new ScrapeResult(this.name);
 
     let post = new ScrapedPost();
-    post.source = document.location.href;
+    post.pageUrl = document.location.href;
 
     // Set image url
     const downloadEl = document.querySelector("#image-download-link > a") as HTMLAnchorElement;

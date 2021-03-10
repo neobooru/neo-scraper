@@ -12,6 +12,7 @@ export default class NeoScraper {
         new engines.Danbooru(),
         new engines.e621(),
         new engines.Gelbooru(),
+        new engines.Inkbunny(),
         new engines.Moebooru(),
         new engines.Pixiv(),
         new engines.Reddit(),
