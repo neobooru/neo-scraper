@@ -49,6 +49,7 @@ export default class e621 implements ScrapeEngine {
       let category: TagCategory | undefined;
 
       switch (el.className) {
+        // https://e621.net/help/api#tags_listing
         case "category-3":
           category = "copyright";
           break;
@@ -60,6 +61,15 @@ export default class e621 implements ScrapeEngine {
           break;
         case "category-7":
           category = "meta";
+          break;
+        case "category-5":
+          category = "species";
+          break;
+        // case "category-6":
+        //   category = "invalid";
+        //   break;
+        case "category-8":
+          category = "lore";
           break;
       }
 
