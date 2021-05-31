@@ -16,7 +16,8 @@ export default class e621 implements ScrapeEngine {
 
     // Set image url
     const downloadEl = document.querySelector("#image-download-link > a") as HTMLAnchorElement;
-    post.contentUrl = downloadEl?.href;
+    // e926 doesnt allow downloads from direct links for some reason. so as a workaround we are using the e621 mirror; theirfor replacing
+    post.contentUrl = downloadEl?.href.replace(/\.e926\.net\/data/, '.e621.net/data');
 
     if (post.contentUrl == undefined) {
       return result;
