@@ -20,8 +20,7 @@ export default class NeoScraper {
         new engines.Shimmie2(),
         new engines.Shuushuu(),
         new engines.Twitter(),
-        new engines.Zerochan(),
-        new engines.FurAffinity()
+        new engines.Zerochan()
       );
       this.fallbackEngine = new engines.Fallback();
     }
