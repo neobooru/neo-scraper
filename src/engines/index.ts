@@ -2,6 +2,7 @@ export { default as AnimePictures } from "./AnimePictures";
 export { default as Danbooru } from "./Danbooru";
 export { default as e621 } from "./e621";
 export { default as Fallback } from "./Fallback";
+export { default as FurAffinity } from "./FurAffinity";
 export { default as Gelbooru } from "./Gelbooru";
 export { default as Inkbunny } from "./Inkbunny";
 export { default as Moebooru } from "./Moebooru";

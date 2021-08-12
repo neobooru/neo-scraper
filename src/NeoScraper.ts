@@ -11,6 +11,7 @@ export default class NeoScraper {
         new engines.AnimePictures(),
         new engines.Danbooru(),
         new engines.e621(),
+        new engines.FurAffinity(),
         new engines.Gelbooru(),
         new engines.Inkbunny(),
         new engines.Moebooru(),
