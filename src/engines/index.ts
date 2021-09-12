@@ -8,6 +8,7 @@ export { default as Inkbunny } from "./Inkbunny";
 export { default as Moebooru } from "./Moebooru";
 export { default as Pixiv } from "./Pixiv";
 export { default as Reddit } from "./Reddit";
+export { default as Rule34us } from "./Rule34us";
 export { default as SankakuComplex } from "./SankakuComplex";
 export { default as Shimmie2 } from "./Shimmie2";
 export { default as Shuushuu } from "./Shuushuu";

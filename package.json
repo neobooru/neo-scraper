@@ -1,12 +1,13 @@
 {
   "name": "neo-scraper",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Scrape a booru-like post object from the DOM.",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "scripts": {
     "test": "jest",
     "build": "tsc",
+    "watch": "tsc -w",
     "prepare": "npm run build"
   },
   "author": "neobooru",
