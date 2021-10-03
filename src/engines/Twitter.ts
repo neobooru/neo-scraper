@@ -1,13 +1,12 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost } from "../ScrapeEngine";
-import { guessContentType } from "../Utility";
 
 export function getOriginalImageUrl(image: HTMLImageElement) {
   // if the link includes a resolution, change it to orig:
   // https://pbs.twimg.com/media/stuff?format=jpg&name=900x900
   // -> https://pbs.twimg.com/media/stuff?format=jpg&name=orig
   let img_url = new URL((image as HTMLImageElement).src);
-  if (img_url.searchParams.has('name') && img_url.searchParams.get('name') != 'orig') {
-    img_url.searchParams.set('name', 'orig');
+  if (img_url.searchParams.has("name") && img_url.searchParams.get("name") != "orig") {
+    img_url.searchParams.set("name", "orig");
   }
   return img_url;
 }
