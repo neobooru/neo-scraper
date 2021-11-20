@@ -12,6 +12,7 @@ export default class AnimePictures implements ScrapeEngine {
   scrapeDocument(document: Document): ScrapeResult {
     let result = new ScrapeResult(this.name);
     let post = new ScrapedPost();
+    post.pageUrl = document.location.href;
     post.source = document.location.href;
 
     // Set image url

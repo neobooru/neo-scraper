@@ -13,15 +13,21 @@
   "author": "neobooru",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^24.9.1",
+    "@types/expect-puppeteer": "^4.4.7",
+    "@types/jest": "^27.0.3",
+    "@types/jest-environment-puppeteer": "^4.4.1",
     "@types/jsdom": "^12.2.4",
+    "@types/puppeteer": "^5.4.4",
     "@types/turndown": "^5.0.1",
-    "jest": "^24.9.0",
+    "jest": "^27.3.1",
+    "jest-puppeteer": "^6.0.0",
     "jsdom": "^15.2.1",
-    "ts-jest": "^24.3.0",
-    "typescript": "^3.8.3"
+    "puppeteer": "^11.0.0",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.5.2"
   },
   "jest": {
+    "preset": "./jest.preset.js",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
