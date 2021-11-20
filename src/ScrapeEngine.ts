@@ -6,20 +6,26 @@ export class ScrapedPost {
   contentUrl: string = "";
   pageUrl: string = "";
   contentType: ContentType = "image";
+  resolution: [number, number] | undefined;
   rating: SafetyRating = "safe";
   tags: ScrapedTag[] = [];
-  source: string | undefined = undefined;
-  referrer: string | undefined = undefined;
+  notes: ScrapedNote[] = [];
+  source: string | undefined;
+  referrer: string | undefined;
 }
 
 export class ScrapedTag {
-  name: string = "";
+  name: string;
   category?: TagCategory;
 
   constructor(name: string, category?: TagCategory) {
     this.name = name.replace(/\s/g, "_").toLowerCase(); // Replace all spaces with underscores and make everything lowercase
     this.category = category;
   }
+}
+
+export class ScrapedNote {
+  constructor(public text: string, public polygons: number[][]) {}
 }
 
 export class ScrapeResult {
@@ -58,4 +64,14 @@ export interface ScrapeEngine {
   name: string;
   canImport(url: Location): boolean;
   scrapeDocument(document: Document): ScrapeResult;
+}
+
+export abstract class ScrapeEngineBase implements ScrapeEngine {
+  abstract name: string;
+  abstract canImport(url: Location): boolean;
+  abstract scrapeDocument(document: Document): ScrapeResult;
+
+  protected log(str: string) {
+    console.log(`[${this.name}] ${str}`);
+  }
 }

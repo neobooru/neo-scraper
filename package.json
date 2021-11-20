@@ -1,6 +1,6 @@
 {
   "name": "neo-scraper",
-  "version": "0.4.7",
+  "version": "0.5.0",
   "description": "Scrape a booru-like post object from the DOM.",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
@@ -15,6 +15,7 @@
   "devDependencies": {
     "@types/jest": "^24.9.1",
     "@types/jsdom": "^12.2.4",
+    "@types/turndown": "^5.0.1",
     "jest": "^24.9.0",
     "jsdom": "^15.2.1",
     "ts-jest": "^24.3.0",
@@ -29,5 +30,8 @@
       "js"
     ],
     "testRegex": "^.+\\.test\\.ts$"
+  },
+  "dependencies": {
+    "turndown": "^7.1.1"
   }
 }

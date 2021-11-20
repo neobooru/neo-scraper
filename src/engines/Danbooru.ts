@@ -1,8 +1,8 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapedNote } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
-import { guessContentType } from "../Utility";
+import { createNoteFromDanbooruArticle, guessContentType } from "../Utility";
 
-export default class Danbooru implements ScrapeEngine {
+export default class Danbooru extends ScrapeEngineBase {
   name = "danbooru";
 
   canImport(url: Location): boolean {
@@ -31,6 +31,16 @@ export default class Danbooru implements ScrapeEngine {
       post.contentType = "video";
     } else {
       post.contentType = guessContentType(post.contentUrl);
+    }
+
+    // Set post resolution
+    // parseInt never throws an error, so we don't have to validate its input.
+    const w = parseInt(document.body.dataset["postImageWidth"]!);
+    const h = parseInt(document.body.dataset["postImageHeight"]!);
+    if (!w || !h) {
+      this.log("Couldn't set post resolution.");
+    } else {
+      post.resolution = [w, h];
     }
 
     // Set rating
@@ -93,6 +103,16 @@ export default class Danbooru implements ScrapeEngine {
       const sourceLink = sourceEl.children[0] as HTMLAnchorElement;
       if (sourceLink) {
         post.source = sourceLink.href;
+      }
+    }
+
+    // Try to load notes
+    const noteEls = Array.from(document.querySelectorAll("section#notes > article")).map((x) => x as HTMLElement);
+
+    for (const el of noteEls) {
+      const note = createNoteFromDanbooruArticle(post, el);
+      if (note) {
+        post.notes.push(note);
       }
     }
 
