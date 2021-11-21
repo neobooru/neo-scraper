@@ -27,10 +27,6 @@ export default class Shimmie2 implements ScrapeEngine {
       }
     }
 
-    if (post.contentUrl == undefined) {
-      return result;
-    }
-
     // Set content type
     post.contentType = guessContentType(post.contentUrl);
 

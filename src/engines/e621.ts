@@ -18,10 +18,6 @@ export default class e621 implements ScrapeEngine {
     const downloadEl = document.querySelector("#image-download-link > a") as HTMLAnchorElement;
     post.contentUrl = downloadEl?.href;
 
-    if (post.contentUrl == undefined) {
-      return result;
-    }
-
     // Set content type
     if (document.querySelector("video#image") != null) {
       post.contentType = "video";

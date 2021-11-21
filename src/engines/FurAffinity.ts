@@ -19,10 +19,6 @@ export default class e621 implements ScrapeEngine {
     const downloadEl = document.querySelector("#submissionImg") as HTMLImageElement;
     post.contentUrl = downloadEl?.src;
 
-    if (post.contentUrl == undefined) {
-      return result;
-    }
-
     // Set content type
     post.contentType = guessContentType(post.contentUrl);
 

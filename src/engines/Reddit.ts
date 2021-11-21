@@ -21,9 +21,9 @@ export default class Reddit implements ScrapeEngine {
     }
 
     // For new reddit
-    const newLinkElements = document.querySelectorAll("div[data-test-id='post-content'] > div > a");
-    if (newLinkElements.length > 0) {
-      post.contentUrl = (newLinkElements[0] as HTMLAnchorElement).href;
+    const newLinkEl = document.querySelector("div[data-test-id='post-content'] img.ImageBox-image")?.parentElement;
+    if (newLinkEl) {
+      post.contentUrl = (newLinkEl as HTMLAnchorElement).href;
     }
 
     if (post.contentUrl != undefined) {

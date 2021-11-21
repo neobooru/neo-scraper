@@ -53,10 +53,6 @@ export default class Gelbooru extends ScrapeEngineBase {
       .filter((x) => x && x.innerText == "Original image")
       .map((x) => (post.contentUrl = x.href));
 
-    if (post.contentUrl == undefined) {
-      return result;
-    }
-
     // Set content type
     if (document.getElementById("gelcomVideoPlayer") != null) {
       post.contentType = "video";

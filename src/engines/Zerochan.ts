@@ -27,11 +27,6 @@ export default class Zerochan implements ScrapeEngine {
       }
     }
 
-    if (post.contentUrl == undefined) {
-      // No point in continuing when we don't have an image.
-      return result;
-    }
-
     // Set content type
     post.contentType = guessContentType(post.contentUrl);
 
@@ -39,21 +34,20 @@ export default class Zerochan implements ScrapeEngine {
     post.rating = "safe";
 
     // Set tags
-    const tagElements = Array.from(document.getElementById("tags")!.children);
+    const tagElements = Array.from(document.querySelectorAll("#tags > li"));
 
     for (const tagElement of tagElements) {
       // Get tag name from url, because some longer tags are shortened.
       // Eg. "Tate no Yuusha no Nariagari" -> "Tate no Yuusha no Nariaga..."
       // (ironically this is longer, but you get the idea)
-      const tagUrl = (tagElement.children[0] as HTMLAnchorElement).pathname.substr(1);
-      const tagName = decodeURIComponent(tagUrl.replace(/\+/g, "_")).toLowerCase();
-
-      let tagType = "";
-      if (tagElement.childNodes.length > 1 && tagElement.childNodes[1].textContent)
-        tagType = tagElement.childNodes[1].textContent.trim().toLowerCase();
+      let tagName: string | undefined = undefined;
+      const tagUrl = (tagElement.querySelector("a") as HTMLAnchorElement | undefined)?.pathname?.substr(1);
+      if (tagUrl) {
+        tagName = decodeURIComponent(tagUrl.replace(/\+/g, "_")).toLowerCase();
+      }
 
       let category: TagCategory | undefined;
-      switch (tagType) {
+      switch (tagElement.className) {
         case "game":
         case "series":
           category = "copyright";

@@ -39,7 +39,7 @@ export class ScrapeResult {
 
   tryAddPost(post: ScrapedPost) {
     if (!post.contentUrl) {
-      console.log(`[${this.engine}] Not adding post because imageUrl is unset!`);
+      console.log(`[${this.engine}] Not adding post because contentUrl is unset!`);
     } else {
       this.posts.push(post);
     }
