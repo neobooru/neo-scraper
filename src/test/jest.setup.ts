@@ -12,14 +12,6 @@ Object.defineProperty(global.Element.prototype, "innerText", {
   },
 });
 
-declare global {
-  namespace jest {
-    interface Matchers<R> {
-      toHaveTag(tagName: string): CustomMatcherResult;
-    }
-  }
-}
-
 // Add our own functions
 expect.extend({
   toHaveTag(received: any, tagName: string): jest.CustomMatcherResult {
@@ -28,6 +20,15 @@ expect.extend({
 
     if (received instanceof ScrapedPost) {
       pass = received.tags.find((x) => x.name == tagName) != undefined;
+    }
+    return { pass, message };
+  },
+  toHaveNote(received: any, noteText: string): jest.CustomMatcherResult {
+    let pass: boolean = false;
+    const message = () => (pass ? "" : `post does not have a note with '${noteText}'.`);
+
+    if (received instanceof ScrapedPost) {
+      pass = received.notes.find((x) => x.text == noteText) != undefined;
     }
     return { pass, message };
   },

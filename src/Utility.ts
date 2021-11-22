@@ -54,6 +54,41 @@ export function htmlNoteToMarkdownNote(text: string) {
   return new TurndownService().turndown(text);
 }
 
+export function validateNote(note: ScrapedNote) {
+  if (note.text.length == 0) {
+    console.log("[validateNote] No text.");
+    return false;
+  }
+
+  for (const poly of note.polygon) {
+    if (poly.some((x) => x > 1 || x < 0)) {
+      console.log("[validateNote] Polygon out of range.");
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export function xywhToNormalizedPolygon(x: number, y: number, w: number, h: number, resolution: [number, number]) {
+  // Normalize our numbers from 0 to 1
+  x = x / resolution[0];
+  y = y / resolution[1];
+  w = w / resolution[0];
+  h = h / resolution[1];
+
+  return [
+    // Top left
+    [x, y],
+    // Top right
+    [x + w, y],
+    // Bottom right
+    [x + w, y + h],
+    // Bottom left
+    [x, y + h],
+  ];
+}
+
 export function createNoteFromDanbooruArticle(post: ScrapedPost, el: HTMLElement): ScrapedNote | undefined {
   function logFail(str: string) {
     console.log("[createNoteFromDanbooruArticle] Can't create note. " + str);
@@ -70,17 +105,6 @@ export function createNoteFromDanbooruArticle(post: ScrapedPost, el: HTMLElement
       logFail(`parseInt on '${value}' returned NaN.`);
     }
     return num;
-  }
-
-  function validateNote(note: ScrapedNote) {
-    for (const poly of note.polygons) {
-      if (poly.some((x) => x > 1 || x < 0)) {
-        logFail("Polygon out of range.");
-        return false;
-      }
-    }
-
-    return true;
   }
 
   if (!post.resolution) {
@@ -110,27 +134,48 @@ export function createNoteFromDanbooruArticle(post: ScrapedPost, el: HTMLElement
     return undefined;
   }
 
-  // Normalize our numbers from 0 to 1
-  x = x / post.resolution[0];
-  y = y / post.resolution[1];
-  w = w / post.resolution[0];
-  h = h / post.resolution[1];
+  const polygon = xywhToNormalizedPolygon(x, y, w, h, post.resolution);
+  const note = new ScrapedNote(text, polygon);
 
-  const polygons = [
-    // Top left
-    [x, y],
-    // Top right
-    [x + w, y],
-    // Bottom right
-    [x + w, y + h],
-    // Bottom left
-    [x, y + h],
-  ];
-
-  const note = new ScrapedNote(text, polygons);
   if (validateNote(note)) {
     return note;
   } else {
     return undefined;
   }
+}
+
+/**
+ * Creates notes by reading ".note-box" and ".note-body" elements.
+ * @param document
+ * @param boxSize
+ * @returns
+ */
+export function createNotesFromMoebooruBoxes(document: Document, boxSize: [number, number]) {
+  let notes: ScrapedNote[] = [];
+  const noteBoxes = Array.from(document.querySelectorAll(".note-box")).map((x) => x as HTMLLIElement);
+  const noteBodies = Array.from(document.querySelectorAll(".note-body")).map((x) => x as HTMLLIElement);
+
+  if (noteBoxes.length != noteBodies.length) {
+    console.log("[createNotesFromMoebooruBoxes] noteBoxes.length != noteBodies.length");
+  } else {
+    for (let i = 0; i < noteBoxes.length; i++) {
+      const noteBox = noteBoxes[i];
+      const noteBody = noteBodies[i];
+
+      const text = htmlNoteToMarkdownNote(noteBody.innerHTML);
+
+      const w = parseInt(noteBox.style.width);
+      const h = parseInt(noteBox.style.height);
+      const y = parseInt(noteBox.style.top);
+      const x = parseInt(noteBox.style.left);
+
+      const polygon = xywhToNormalizedPolygon(x, y, w, h, boxSize);
+      const note = new ScrapedNote(text, polygon);
+
+      if (validateNote(note)) {
+        notes.push(note);
+      }
+    }
+  }
+  return notes;
 }

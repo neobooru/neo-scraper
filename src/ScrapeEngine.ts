@@ -25,7 +25,7 @@ export class ScrapedTag {
 }
 
 export class ScrapedNote {
-  constructor(public text: string, public polygons: number[][]) {}
+  constructor(public text: string, public polygon: number[][]) {}
 }
 
 export class ScrapeResult {

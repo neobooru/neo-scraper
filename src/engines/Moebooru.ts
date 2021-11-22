@@ -1,8 +1,8 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapedNote } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
-import { guessContentType } from "../Utility";
+import { createNotesFromMoebooruBoxes, guessContentType } from "../Utility";
 
-export default class Moebooru implements ScrapeEngine {
+export default class Moebooru extends ScrapeEngineBase {
   name = "moebooru";
 
   canImport(url: Location): boolean {
@@ -52,6 +52,21 @@ export default class Moebooru implements ScrapeEngine {
               break;
           }
         }
+        // If size element
+        else if (matches[1] == "Size") {
+          // Example string: 1600x2200
+          const res = matches[2]
+            .split("x") // Split on 'x' character
+            .map((v, _) => parseInt(v)) // Parse ints
+            .filter(Number); // Filter NaN. Also removes the number 0, but that's fine because the resolution can't be 0.
+
+          if (res.length == 2) {
+            // Kinda hacky, but this is currently the correct way to convert an array to a tuple.
+            post.resolution = [res[0], res[1]];
+          } else {
+            this.log("Couldn't parse post resolution.");
+          }
+        }
       }
     }
 
@@ -94,6 +109,15 @@ export default class Moebooru implements ScrapeEngine {
 
       let tag = new ScrapedTag(tagName, category);
       post.tags.push(tag);
+    }
+
+    // Set notes
+    const noteBoxSizeEl = document.getElementById("image") as HTMLImageElement;
+    if (!noteBoxSizeEl) {
+      this.log("noteBoxSizeEl is undefined.");
+    } else {
+      const boxSize: [number, number] = [noteBoxSizeEl.width, noteBoxSizeEl.height];
+      post.notes = createNotesFromMoebooruBoxes(document, boxSize);
     }
 
     result.tryAddPost(post);

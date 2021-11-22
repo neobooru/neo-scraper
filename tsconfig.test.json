@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es2019",
+      "dom",
+      "dom.iterable"
+    ],
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "strict": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es2015",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "declaration": true
+  },
+  "include": [
+    "src/index.ts",
+    "src/test/jest.d.ts"
+  ]
+}
