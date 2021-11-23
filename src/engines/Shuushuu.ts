@@ -1,6 +1,6 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
-import { guessContentType } from "../Utility";
+import { guessContentType, parseResolutionString } from "../Utility";
 
 export default class Shuushuu implements ScrapeEngine {
   name = "shuushuu";
@@ -25,6 +25,19 @@ export default class Shuushuu implements ScrapeEngine {
 
     // Set content type
     post.contentType = guessContentType(post.contentUrl);
+
+    // Set resolution
+    const metaEls = Array.from(document.querySelector<HTMLDataListElement>(".meta > dl")?.children ?? []);
+    const dimsDtEl = metaEls.find((x) => (<any>x).innerText == "Dimensions:");
+    if (dimsDtEl) {
+      const dimsDtIdx = metaEls.indexOf(dimsDtEl);
+      let str = (<any>metaEls[dimsDtIdx + 1])?.innerText;
+      if (str) {
+        // When str is "1447x1023 (1.480 MPixel)"
+        str = str.split("(")[0]; // Remove the "(1.480 MPixel)" part
+        post.resolution = parseResolutionString(str);
+      }
+    }
 
     // Set rating
     post.rating = "safe";

@@ -21,7 +21,11 @@ export default class Gelbooru extends ScrapeEngineBase {
 
   canImport(url: Location): boolean {
     return (
-      url.host == "safebooru.org" || url.host == "gelbooru.com" || url.host == "rule34.xxx" || url.host == "tbib.org"
+      url.host == "safebooru.org" ||
+      url.host == "gelbooru.com" ||
+      url.host == "rule34.xxx" ||
+      url.host == "tbib.org" ||
+      url.host == "xbooru.com"
     );
   }
 
@@ -32,6 +36,7 @@ export default class Gelbooru extends ScrapeEngineBase {
       case "safebooru.org":
       case "rule34.xxx":
       case "tbib.org":
+      case "xbooru.com":
         version = Version.v020;
         break;
       case "gelbooru.com":

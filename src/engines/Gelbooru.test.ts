@@ -62,3 +62,17 @@ test("get rule34.xxx post 2740994", async () => {
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toContain(".rule34.xxx//images/2472/35bf31c98f53a369c047baf9bae496fb.jpeg");
 });
+
+test("get xbooru.com post 834083", async () => {
+  // Don't worry this isn't a cursed image.
+  const pageUrl = "https://xbooru.com/index.php?page=post&s=view&id=834083";
+  const res = await scrapeUrl(pageUrl);
+  expect(res.posts[0]).toHaveTag("friendship_is_magic", "copyright");
+  expect(res.posts[0]).toHaveTag("nurse_redheart", "character");
+  expect(res.posts[0]).toHaveTag("nurse");
+  expect(res.posts[0]).toHaveTag("standing");
+  expect(res.posts[0]).toHaveResolution([1024, 1878]);
+  expect(res.posts.length).toBe(1);
+  expect(res.posts[0].pageUrl).toBe(pageUrl);
+  expect(res.posts[0].contentUrl).toBe("https://img.xbooru.com//images/584/040dc1625c094a7d5d7b0918aa0d8324.png");
+});

@@ -3,10 +3,9 @@ import { TagCategory } from "../BooruTypes";
 import { ScrapedPost } from "../ScrapeEngine";
 
 // Expose JSDOM Element constructor
-// @ts-ignore
 global.Element = new JSDOM().window.Element;
 // 'Implement' innerText in JSDOM: https://github.com/jsdom/jsdom/issues/1245
-// @ts-ignore
+// This implementation is not 100% correct, but usually good enough so that the tests pass.
 Object.defineProperty(global.Element.prototype, "innerText", {
   get() {
     return this.textContent.replace(/(\r\n|\n|\r|^\s+|\s+$)/gm, "");

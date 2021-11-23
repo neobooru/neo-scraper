@@ -4,14 +4,14 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 import { CategoryMap } from "./Common";
-import { guessContentType } from "../Utility";
+import { guessContentType, parseResolutionString } from "../Utility";
 
 export default class Gelbooru implements ScrapeEngine {
   name = "rule34us";
 
   private readonly classNameToCategoryMap: CategoryMap = {
     "character-tag": "character",
-    "artist-tag": "character",
+    "artist-tag": "artist",
     "copyright-tag": "copyright",
     "metadata-tag": "meta",
   };
@@ -39,6 +39,13 @@ export default class Gelbooru implements ScrapeEngine {
 
     // Set content type
     post.contentType = guessContentType(post.contentUrl);
+
+    // Set resolution
+    const statEls = Array.from(document.querySelectorAll<HTMLLIElement>(".container > ul > div > li"));
+    const sizeEl = statEls.find((x) => x.innerText.indexOf("Size:") != -1);
+    if (sizeEl) {
+      post.resolution = parseResolutionString(sizeEl.innerText);
+    }
 
     // Patch contentUrl if contentType == "video"
     // This is because the "Original" button does link to "302 Found" for videos. Idk why.

@@ -1,6 +1,6 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
-import { guessContentType } from "../Utility";
+import { guessContentType, parseResolutionString } from "../Utility";
 
 export default class Zerochan implements ScrapeEngine {
   name = "zerochan";
@@ -30,6 +30,12 @@ export default class Zerochan implements ScrapeEngine {
     // Set content type
     post.contentType = guessContentType(post.contentUrl);
 
+    // Set resolution
+    const resSizeEl = document.querySelector("#large > p > br")?.parentNode as HTMLParagraphElement;
+    if (resSizeEl) {
+      post.resolution = parseResolutionString(resSizeEl.childNodes[0].textContent);
+    }
+
     // Set rating
     post.rating = "safe";
 
@@ -50,9 +56,11 @@ export default class Zerochan implements ScrapeEngine {
       switch (tagElement.className) {
         case "game":
         case "series":
+        case "studio":
           category = "copyright";
           break;
         case "character":
+        case "character group":
           category = "character";
           break;
         case "mangaka":

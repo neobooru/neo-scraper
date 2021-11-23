@@ -180,10 +180,13 @@ export function createNotesFromMoebooruBoxes(document: Document, boxSize: [numbe
   return notes;
 }
 
-export function parseResolutionString(str: string): [number, number] | undefined {
+export function parseResolutionString(str: string | undefined | null): [number, number] | undefined {
+  if (!str) return undefined;
+
   // Example string: 1600x2200
   const res = str
     .split("x") // Split on 'x' character
+    .map((v, _) => v.replace(/\D/g, "")) // Remove all non-digits
     .map((v, _) => parseInt(v)) // Parse ints
     .filter(Number); // Filter NaN. Also removes the number 0, but that's fine because the resolution can't be 0.
 
