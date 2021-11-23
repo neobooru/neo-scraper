@@ -1,7 +1,7 @@
 import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 import { CategoryMap } from "./Common";
-import { createNoteFromDanbooruArticle, guessContentType } from "../Utility";
+import { createNoteFromDanbooruArticle, guessContentType, parseResolutionString } from "../Utility";
 
 // Small hack to avoid screwing with semver
 enum Version {
@@ -103,18 +103,7 @@ export default class Gelbooru extends ScrapeEngineBase {
           }
           // If size element
           else if (matches[1] == "Size") {
-            // Example string: 1600x2200
-            const res = matches[2]
-              .split("x") // Split on 'x' character
-              .map((v, _) => parseInt(v)) // Parse ints
-              .filter(Number); // Filter NaN. Also removes the number 0, but that's fine because the resolution can't be 0.
-
-            if (res.length == 2) {
-              // Kinda hacky, but this is currently the correct way to convert an array to a tuple.
-              post.resolution = [res[0], res[1]];
-            } else {
-              this.log("Couldn't parse post resolution.");
-            }
+            post.resolution = parseResolutionString(matches[2]);
           }
         }
       }

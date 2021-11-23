@@ -179,3 +179,18 @@ export function createNotesFromMoebooruBoxes(document: Document, boxSize: [numbe
   }
   return notes;
 }
+
+export function parseResolutionString(str: string): [number, number] | undefined {
+  // Example string: 1600x2200
+  const res = str
+    .split("x") // Split on 'x' character
+    .map((v, _) => parseInt(v)) // Parse ints
+    .filter(Number); // Filter NaN. Also removes the number 0, but that's fine because the resolution can't be 0.
+
+  if (res.length == 2) {
+    // Kinda hacky, but this is currently the correct way to convert an array to a tuple.
+    return [res[0], res[1]];
+  } else {
+    console.log(`[parseResolutionString] Couldn't parse resolution from '${str}'.`);
+  }
+}

@@ -1,6 +1,6 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
-import { guessContentType } from "../Utility";
+import { guessContentType, parseResolutionString } from "../Utility";
 
 export default class AnimePictures implements ScrapeEngine {
   name = "animepictures";
@@ -20,9 +20,6 @@ export default class AnimePictures implements ScrapeEngine {
 
     if (originalImageElements.length > 0) {
       post.contentUrl = (originalImageElements[0] as HTMLAnchorElement).href;
-    } else {
-      // No point in continuing when we don't have an image.
-      return result;
     }
 
     // Set content type
@@ -31,8 +28,17 @@ export default class AnimePictures implements ScrapeEngine {
     // Set rating
     post.rating = "safe"; // Probably
 
+    // Set resolution
+    const postContentLinkEls = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>("#content > div > .post_content > a")
+    );
+    const resEl = postContentLinkEls.find((x) => x.href.indexOf("res_x") != -1);
+    if (resEl) {
+      post.resolution = parseResolutionString(resEl.innerText);
+    }
+
     // Set tags
-    const tagElements = Array.from(document.querySelectorAll("ul.tags > li > a")).map((x) => x as HTMLAnchorElement);
+    const tagElements = Array.from(document.querySelectorAll<HTMLAnchorElement>("ul.tags > li > a"));
     for (const tagElement of tagElements) {
       let tagName = tagElement.innerText;
 

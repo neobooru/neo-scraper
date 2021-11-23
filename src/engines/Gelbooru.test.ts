@@ -4,6 +4,14 @@ test("get safebooru.org post 2871532", async () => {
   const pageUrl = "https://safebooru.org/index.php?page=post&s=view&id=2871532";
   const res = await scrapeUrl(pageUrl);
   expect(res.posts.length).toBe(1);
+  expect(res.posts[0]).toHaveTag("omachi_(slabco)", "artist");
+  expect(res.posts[0]).toHaveTag("flint_(girls_und_panzer)", "character");
+  expect(res.posts[0]).toHaveTag("bangs");
+  expect(res.posts[0]).toHaveTag("shirt");
+  expect(res.posts[0]).toHaveTag("skirt");
+  expect(res.posts[0]).toHaveTag("t-shirt");
+  expect(res.posts[0]).toHaveTag("long_hair");
+  expect(res.posts[0]).toHaveResolution([1142, 1600]);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toBe(
     "https://safebooru.org//images/2757/5f19c7744db918c3d4c4c6035bc65dfa9e18866f.jpg"
@@ -14,6 +22,9 @@ test("get gelbooru.com post 4925055", async () => {
   const pageUrl = "https://gelbooru.com/index.php?page=post&s=view&id=4925055&tags=kimetsu_no_yaiba";
   const res = await scrapeUrl(pageUrl);
   expect(res.posts.length).toBe(1);
+  expect(res.posts[0]).toHaveTag("maosen", "artist");
+  expect(res.posts[0]).toHaveTag("butterfly");
+  expect(res.posts[0]).toHaveResolution([720, 1103]);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toBe("https://img3.gelbooru.com/images/3d/03/3d03f6858637805d6473d390a4b1d8c8.jpg");
 });
@@ -33,6 +44,7 @@ test("get gelbooru.com post 6225495 with notes", async () => {
   expect(res.posts[0]).toHaveNote("I'm fine, more or less.");
   expect(res.posts[0]).toHaveNote("But no need to worry!");
   expect(res.posts[0]).toHaveNote("You're always the best just by being yourself-!!!");
+  expect(res.posts[0]).toHaveResolution([1600, 2200]);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toBe("https://img3.gelbooru.com/images/af/1d/af1dd661fab6714dffc29cb38b6b2269.png");
 });
@@ -40,6 +52,12 @@ test("get gelbooru.com post 6225495 with notes", async () => {
 test("get rule34.xxx post 2740994", async () => {
   const pageUrl = "https://rule34.xxx/index.php?page=post&s=view&id=2740994";
   const res = await scrapeUrl(pageUrl);
+  expect(res.posts[0]).toHaveTag("fire_emblem", "copyright");
+  expect(res.posts[0]).toHaveTag("nintendo", "copyright");
+  expect(res.posts[0]).toHaveTag("lucina", "character");
+  expect(res.posts[0]).toHaveTag("blue_hair");
+  expect(res.posts[0]).toHaveTag("solo");
+  expect(res.posts[0]).toHaveResolution([600, 800]);
   expect(res.posts.length).toBe(1);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toContain(".rule34.xxx//images/2472/35bf31c98f53a369c047baf9bae496fb.jpeg");
