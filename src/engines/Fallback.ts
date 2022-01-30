@@ -1,4 +1,5 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ContentType } from "../ScrapeEngine";
+import { guessContentType } from "../Utility";
 
 class MediaElement {
   constructor(
@@ -16,6 +17,21 @@ export default class Fallback implements ScrapeEngine {
   }
 
   scrapeDocument(document: Document): ScrapeResult {
+    let result = new ScrapeResult(this.name);
+
+    // Check if the current page is a link to a video file.
+    // If it is then use the document.location.href as media source and immediately return.
+    // This is needed because firefox does not add a <source> to a <video> element
+    // when going to a direct link. It looks like chromium-based browsers do not have this issue.
+    if (guessContentType(document.location.href) == "video") {
+      let post = new ScrapedPost();
+      post.pageUrl = document.location.href;
+      post.contentUrl = document.location.href;
+      post.contentType = "video";
+      result.posts.push(post);
+      return result;
+    }
+
     // Get all img elements.
     const largestImgElement = Array.from(document.getElementsByTagName("img")).map(
       (x) => new MediaElement("image", x.src, x.width * x.height)
@@ -32,8 +48,6 @@ export default class Fallback implements ScrapeEngine {
     const largestMediaElement = [...largestImgElement, ...largestVideoElement].reduce((a, b) =>
       a?.size > b?.size ? a : b
     );
-
-    let result = new ScrapeResult(this.name);
 
     if (largestMediaElement) {
       let post = new ScrapedPost();

@@ -39,9 +39,17 @@ export const videoExtensions = [
 ];
 
 export function getUrlExtension(url: string) {
+  // https://stackoverflow.com/a/47767860
   return url.split(/[#?]/)[0].split(".").pop()!.trim();
 }
 
+/**
+ * Returns "image" when the guessed type is NOT a video.
+ * This means that it will also return "image" when the content type
+ * could not be guessed!
+ * @param url
+ * @returns "image" | "video"
+ */
 export function guessContentType(url: string): ContentType {
   if (url != undefined) {
     const ext = getUrlExtension(url);

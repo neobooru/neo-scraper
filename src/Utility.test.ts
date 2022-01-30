@@ -1,4 +1,13 @@
-import { guessContentType } from "./Utility";
+import { getUrlExtension, guessContentType } from "./Utility";
+
+test("getUrlExtension", () => {
+  expect(getUrlExtension("image.png")).toBe("png");
+  expect(getUrlExtension("image.jpeg?34")).toBe("jpeg");
+  expect(getUrlExtension("image.php?q=test&p=123%204")).toBe("php");
+
+  // I would probably rather have this return an empty string, but maybe some code relies on this functionality?
+  expect(getUrlExtension("http://site/index")).toBe("http://site/index");
+});
 
 test("guessContentType", () => {
   expect(guessContentType("video.mp4")).toBe("video");
