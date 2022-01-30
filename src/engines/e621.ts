@@ -37,6 +37,13 @@ export default class e621 implements ScrapeEngine {
         break;
     }
 
+    // Set resolution
+    const width = parseInt((<HTMLSpanElement>document.querySelector("span[itemprop='width']"))?.innerText);
+    const height = parseInt((<HTMLSpanElement>document.querySelector("span[itemprop='height']"))?.innerText);
+    if (width != NaN && height != NaN) {
+      post.resolution = [width, height];
+    }
+
     // Set tags
     const tagEls = Array.from(document.querySelectorAll("#tag-list > ul > li")).map((x) => x as HTMLLIElement);
 

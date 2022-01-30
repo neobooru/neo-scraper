@@ -33,6 +33,13 @@ export default class Inkbunny implements ScrapeEngine {
       return result;
     }
 
+    // Set post resolution
+    const width = parseInt((<HTMLInputElement>document.getElementById("submission-origwidth"))?.value);
+    const height = parseInt((<HTMLInputElement>document.getElementById("submission-origheight"))?.value);
+    if (width != NaN && height != NaN) {
+      post.resolution = [width, height];
+    }
+
     // Set rating
     const ratingExp = new RegExp("Rating: (.*)");
     const spanEls = Array.from(document.querySelectorAll("div > span"));

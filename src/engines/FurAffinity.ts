@@ -1,7 +1,7 @@
 import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
-import { guessContentType } from "../Utility";
+import { guessContentType, parseResolutionString } from "../Utility";
 
-export default class e621 implements ScrapeEngine {
+export default class FurAffinity implements ScrapeEngine {
   name = "furaffinity";
 
   canImport(url: Location): boolean {
@@ -21,6 +21,14 @@ export default class e621 implements ScrapeEngine {
 
     // Set content type
     post.contentType = guessContentType(post.contentUrl);
+
+    // Set resolution
+    const infoTexts = Array.from(document.querySelector("section.info.text")?.children ?? []);
+    const sizeDiv = infoTexts.find((x) => x.querySelector("strong")?.innerText == "Size");
+    if (sizeDiv) {
+      const resolution = parseResolutionString(sizeDiv.querySelector("span")?.innerText);
+      post.resolution = resolution;
+    }
 
     // Set rating
     const ratingEls = Array.from(document.querySelectorAll("div.rating > span.rating-box")).map(
