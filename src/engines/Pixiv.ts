@@ -1,4 +1,4 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapeEngineFeature } from "../ScrapeEngine";
 import { guessContentType } from "../Utility";
 
 export function upgradeUrlToOriginalQuality(imgLink: string) {
@@ -21,17 +21,15 @@ export function upgradeUrlToOriginalQuality(imgLink: string) {
   return imgLink;
 }
 
-export default class Pixiv implements ScrapeEngine {
+export default class Pixiv extends ScrapeEngineBase {
   name = "pixiv";
-
-  canImport(url: Location): boolean {
-    return url.host == "pixiv.net" || url.host == "www.pixiv.net";
-  }
+  features: ScrapeEngineFeature[] = ["content"];
+  notes = [];
+  supportedHosts = ["pixiv.net", "www.pixiv.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-
-    let imgLinks = [] as string[];
+    const result = new ScrapeResult(this.name);
+    const imgLinks = [] as string[];
 
     // Query for when the user is on the desktop site, is logged in, and has optionally clicked on "See all".
     // If the user has not clicked on "See all" then this will only grab the first post.
@@ -49,6 +47,7 @@ export default class Pixiv implements ScrapeEngine {
       // This only works on pages with multiple posts. The user can optionally be logged in.
       imgLinks.push(
         ...Array.from(document.querySelectorAll<HTMLImageElement>(".manga-page > a > img[data-big]")).map(
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           (x) => x.getAttribute("data-big")!
         )
       );
@@ -63,7 +62,7 @@ export default class Pixiv implements ScrapeEngine {
     }
 
     for (const imgLink of imgLinks) {
-      let post = new ScrapedPost();
+      const post = new ScrapedPost();
       post.pageUrl = document.location.href;
       post.contentUrl = upgradeUrlToOriginalQuality(imgLink);
       post.contentType = guessContentType(post.contentUrl);

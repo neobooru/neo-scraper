@@ -3,8 +3,8 @@ import { TagCategory, SafetyRating } from "./BooruTypes";
 export type ContentType = "image" | "video";
 
 export class ScrapedPost {
-  contentUrl: string = "";
-  pageUrl: string = "";
+  contentUrl = "";
+  pageUrl = "";
   contentType: ContentType = "image";
   resolution: [number, number] | undefined;
   rating: SafetyRating = "safe";
@@ -30,7 +30,7 @@ export class ScrapedNote {
 
 export class ScrapeResult {
   engine: string;
-  description: string = "";
+  description = "";
   posts: ScrapedPost[] = [];
 
   constructor(engine: string) {
@@ -50,9 +50,9 @@ export class ScrapeResults {
   results: ScrapeResult[] = [];
 
   get posts(): ScrapedPost[] {
-    var posts: ScrapedPost[] = [];
+    let posts: ScrapedPost[] = [];
 
-    for (var res of this.results) {
+    for (const res of this.results) {
       posts = posts.concat(res.posts);
     }
 
@@ -60,15 +60,28 @@ export class ScrapeResults {
   }
 }
 
+export type ScrapeEngineFeature = "content" | "rating" | "resolution" | "tags" | "tag_category" | "source" | "notes";
+
 export interface ScrapeEngine {
   name: string;
+  features: ScrapeEngineFeature[];
+  notes: string[];
+  supportedHosts: string[];
+
   canImport(url: Location): boolean;
   scrapeDocument(document: Document): ScrapeResult;
 }
 
 export abstract class ScrapeEngineBase implements ScrapeEngine {
   abstract name: string;
-  abstract canImport(url: Location): boolean;
+  abstract features: ScrapeEngineFeature[];
+  abstract notes: string[];
+  abstract supportedHosts: string[];
+
+  canImport(url: Location): boolean {
+    return this.supportedHosts.indexOf(url.host) != -1;
+  }
+
   abstract scrapeDocument(document: Document): ScrapeResult;
 
   protected log(str: string) {

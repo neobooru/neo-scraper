@@ -1,19 +1,18 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 import { guessContentType, parseResolutionString } from "../Utility";
 
-export default class AnimePictures implements ScrapeEngine {
+export default class AnimePictures extends ScrapeEngineBase {
   name = "animepictures";
-
-  canImport(url: Location): boolean {
-    return url.host == "anime-pictures.net";
-  }
+  features: ScrapeEngineFeature[] = ["content", "resolution", "tags", "tag_category"];
+  notes = ["Rating is assumed to be safe."];
+  supportedHosts = ["anime-pictures.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
-    post.source = document.location.href;
+    
 
     // Set image url
     const originalImageElements = Array.from(document.getElementsByClassName("download_icon"));
@@ -40,7 +39,7 @@ export default class AnimePictures implements ScrapeEngine {
     // Set tags
     const tagElements = Array.from(document.querySelectorAll<HTMLAnchorElement>("ul.tags > li > a"));
     for (const tagElement of tagElements) {
-      let tagName = tagElement.innerText;
+      const tagName = tagElement.innerText;
 
       let category: TagCategory | undefined;
       for (const className of tagElement.classList) {
@@ -58,7 +57,7 @@ export default class AnimePictures implements ScrapeEngine {
       }
 
       if (tagName) {
-        let tag = new ScrapedTag(tagName, category);
+        const tag = new ScrapedTag(tagName, category);
         post.tags.push(tag);
       }
     }

@@ -1,17 +1,15 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { guessContentType, parseResolutionString } from "../Utility";
 
-export default class FurAffinity implements ScrapeEngine {
+export default class FurAffinity extends ScrapeEngineBase {
   name = "furaffinity";
-
-  canImport(url: Location): boolean {
-    return url.host == "www.furaffinity.net";
-  }
+  features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category"];
+  notes = [];
+  supportedHosts = ["www.furaffinity.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url
@@ -52,9 +50,6 @@ export default class FurAffinity implements ScrapeEngine {
     post.tags = Array.from(document.querySelectorAll("section.tags-row > span.tags"))
       .map((x) => (x as HTMLSpanElement).innerText)
       .map((x) => new ScrapedTag(x));
-
-    // Set source
-    post.source = document.location.href;
 
     result.tryAddPost(post);
 

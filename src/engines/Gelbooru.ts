@@ -1,4 +1,4 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 import { CategoryMap } from "./Common";
 import { createNoteFromDanbooruArticle, guessContentType, parseResolutionString } from "../Utility";
@@ -11,6 +11,9 @@ enum Version {
 
 export default class Gelbooru extends ScrapeEngineBase {
   name = "gelbooru";
+  features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category", "source", "notes"];
+  notes = ["Supported features might vary between hosts."];
+  supportedHosts = ["safebooru.org", "gelbooru.com", "rule34.xxx", "tbib.org", "xbooru.com"];
 
   private readonly classNameToCategoryMap: CategoryMap = {
     "tag-type-copyright": "copyright",
@@ -19,18 +22,8 @@ export default class Gelbooru extends ScrapeEngineBase {
     "tag-type-metadata": "meta",
   };
 
-  canImport(url: Location): boolean {
-    return (
-      url.host == "safebooru.org" ||
-      url.host == "gelbooru.com" ||
-      url.host == "rule34.xxx" ||
-      url.host == "tbib.org" ||
-      url.host == "xbooru.com"
-    );
-  }
-
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
+    const result = new ScrapeResult(this.name);
     let version: Version | null = null;
     switch (document.location.host) {
       case "safebooru.org":
@@ -49,7 +42,7 @@ export default class Gelbooru extends ScrapeEngineBase {
 
     this.log("Guessed version: " + version);
 
-    let post = new ScrapedPost();
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url
@@ -154,7 +147,7 @@ export default class Gelbooru extends ScrapeEngineBase {
           }
         }
 
-        let tag = new ScrapedTag(tagName, category);
+        const tag = new ScrapedTag(tagName, category);
         post.tags.push(tag);
       }
     }

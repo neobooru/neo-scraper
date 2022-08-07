@@ -1,17 +1,16 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 import { guessContentType, parseResolutionString } from "../Utility";
 
-export default class Shuushuu implements ScrapeEngine {
+export default class Shuushuu extends ScrapeEngineBase {
   name = "shuushuu";
-
-  canImport(url: Location): boolean {
-    return url.host == "e-shuushuu.net";
-  }
+  features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category"];
+  notes = ["Rating is assumed to be safe."];
+  supportedHosts = ["e-shuushuu.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url

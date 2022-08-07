@@ -1,17 +1,16 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapedNote } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 import { createNotesFromMoebooruBoxes, guessContentType, parseResolutionString } from "../Utility";
 
 export default class Moebooru extends ScrapeEngineBase {
   name = "moebooru";
-
-  canImport(url: Location): boolean {
-    return url.host == "yande.re" || url.host == "konachan.com";
-  }
+  features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category", "source", "notes"];
+  notes = [];
+  supportedHosts = ["yande.re", "konachan.com"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url
@@ -64,7 +63,7 @@ export default class Moebooru extends ScrapeEngineBase {
 
     for (const el of tagElements) {
       let tagName: string;
-      let tagNameElements = el.getElementsByTagName("a");
+      const tagNameElements = el.getElementsByTagName("a");
 
       if (tagNameElements.length > 1) {
         // First <a> is "?"
@@ -96,7 +95,7 @@ export default class Moebooru extends ScrapeEngineBase {
         }
       }
 
-      let tag = new ScrapedTag(tagName, category);
+      const tag = new ScrapedTag(tagName, category);
       post.tags.push(tag);
     }
 

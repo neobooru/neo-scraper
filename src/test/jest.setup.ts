@@ -19,7 +19,7 @@ expect.extend({
     tagName: string,
     tagCategory: TagCategory | undefined = undefined
   ): jest.CustomMatcherResult {
-    let pass: boolean = false;
+    let pass = false;
     const message = () => (pass ? "" : `Post does not have the '${tagName}' tag, or the category is incorrect.`);
 
     if (received instanceof ScrapedPost) {
@@ -35,7 +35,7 @@ expect.extend({
     return { pass, message };
   },
   toHaveNote(received: any, noteText: string): jest.CustomMatcherResult {
-    let pass: boolean = false;
+    let pass = false;
     const message = () => (pass ? "" : `Post does not have a note with '${noteText}'.`);
 
     if (received instanceof ScrapedPost) {
@@ -44,7 +44,7 @@ expect.extend({
     return { pass, message };
   },
   toHaveResolution(received: any, resolution: [number, number]): jest.CustomMatcherResult {
-    let pass: boolean = false;
+    let pass = false;
     const message = () => (pass ? "" : `Expected: ${resolution}\nReceived: ${received?.resolution}`);
 
     if (received instanceof ScrapedPost && received.resolution?.length == 2) {

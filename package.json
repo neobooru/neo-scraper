@@ -1,7 +1,8 @@
 {
   "name": "neo-scraper",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Scrape a booru-like post object from the DOM.",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "scripts": {
@@ -10,7 +11,9 @@
     "test:debug": "cross-env HEADLESS=false jest --testTimeout=100000000",
     "build": "tsc",
     "watch": "tsc -w",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "lint": "eslint src scripts",
+    "summary-table": "npm run build && node --experimental-specifier-resolution=node --loader ts-node/esm scripts/summary-table.ts"
   },
   "author": "neobooru",
   "license": "MIT",
@@ -24,15 +27,23 @@
     "@types/jsdom": "^12.2.4",
     "@types/puppeteer": "^5.4.4",
     "@types/turndown": "^5.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
+    "eslint": "8.7.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
     "jest": "^26.6.3",
     "jest-puppeteer": "^6.0.0",
     "jsdom": "^15.2.1",
+    "prettier": "2.5.1",
     "puppeteer": "^13.1.2",
     "ts-jest": "^26.5.6",
+    "ts-node": "^10.9.1",
     "typescript": "^4.5.2"
   },
   "jest": {
-    "preset": "./jest.preset.js",
+    "preset": "./jest.preset.cjs",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

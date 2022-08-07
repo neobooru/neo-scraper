@@ -1,13 +1,16 @@
 // Technically speaking rule34.us also uses gelbooru, albeit a (heavily?) modified one.
 // Because pretty much no scraper code can be shared with other gelbooru-likes it makes more sense to create a new engine for rule34.us.
 
-import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 import { CategoryMap } from "./Common";
 import { guessContentType, parseResolutionString } from "../Utility";
 
-export default class Gelbooru implements ScrapeEngine {
+export default class Gelbooru extends ScrapeEngineBase {
   name = "rule34us";
+  features: ScrapeEngineFeature[] = ["content", "resolution", "tags", "tag_category"];
+  notes = ["Rating is assumed to be unsafe."];
+  supportedHosts = ["rule34.us"];
 
   private readonly classNameToCategoryMap: CategoryMap = {
     "character-tag": "character",
@@ -16,14 +19,9 @@ export default class Gelbooru implements ScrapeEngine {
     "metadata-tag": "meta",
   };
 
-  canImport(url: Location): boolean {
-    return url.host == "rule34.us";
-  }
-
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url

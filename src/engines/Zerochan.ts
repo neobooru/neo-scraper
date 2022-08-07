@@ -1,17 +1,16 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 import { guessContentType, parseResolutionString } from "../Utility";
 
-export default class Zerochan implements ScrapeEngine {
+export default class Zerochan extends ScrapeEngineBase {
   name = "zerochan";
-
-  canImport(url: Location): boolean {
-    return url.host.endsWith("zerochan.net");
-  }
+  features: ScrapeEngineFeature[] = ["content", "resolution", "tags", "tag_category"];
+  notes = ["Rating is assumed to be safe."];
+  supportedHosts = ["www.zerochan.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url
@@ -67,12 +66,12 @@ export default class Zerochan implements ScrapeEngine {
           category = "artist";
           break;
         case "source":
-          // Skip these type of tags, because they are not 'booru-like'
+          // Skip these type of tags, because they are not 'booru-like'.
           continue;
       }
 
       if (tagName) {
-        let tag = new ScrapedTag(tagName, category);
+        const tag = new ScrapedTag(tagName, category);
         post.tags.push(tag);
       }
     }

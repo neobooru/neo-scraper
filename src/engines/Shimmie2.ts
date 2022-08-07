@@ -1,16 +1,15 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { guessContentType } from "../Utility";
 
-export default class Shimmie2 implements ScrapeEngine {
+export default class Shimmie2 extends ScrapeEngineBase {
   name = "shimmie2";
-
-  canImport(url: Location): boolean {
-    return url.host == "rule34.paheal.net" || url.host == "rule34hentai.net";
-  }
+  features: ScrapeEngineFeature[] = ["content", "tags", "source"];
+  notes = ["Rating is assumed to be unsafe."];
+  supportedHosts = ["rule34.paheal.net", "rule34hentai.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url

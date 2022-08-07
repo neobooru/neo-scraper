@@ -1,16 +1,15 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapeEngineFeature } from "../ScrapeEngine";
 import { guessContentType } from "../Utility";
 
-export default class Reddit implements ScrapeEngine {
+export default class Reddit extends ScrapeEngineBase {
   name = "reddit";
-
-  canImport(url: Location): boolean {
-    return url.host.endsWith("reddit.com");
-  }
+  features: ScrapeEngineFeature[] = ["content"];
+  notes = [];
+  supportedHosts = ["reddit.com", "new.reddit.com", "old.reddit.com"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url

@@ -1,17 +1,15 @@
-import { ScrapeEngine, ScrapeResult, ScrapedPost, ScrapedTag } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 
-export default class e621 implements ScrapeEngine {
+export default class e621 extends ScrapeEngineBase {
   name = "e621";
-
-  canImport(url: Location): boolean {
-    return url.host == "e621.net" || url.host == "e926.net";
-  }
+  features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category", "source"];
+  notes = [];
+  supportedHosts = ["e621.net", "e926.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url
@@ -40,7 +38,7 @@ export default class e621 implements ScrapeEngine {
     // Set resolution
     const width = parseInt((<HTMLSpanElement>document.querySelector("span[itemprop='width']"))?.innerText);
     const height = parseInt((<HTMLSpanElement>document.querySelector("span[itemprop='height']"))?.innerText);
-    if (width != NaN && height != NaN) {
+    if (!isNaN(width) && !isNaN(height)) {
       post.resolution = [width, height];
     }
 
@@ -77,7 +75,7 @@ export default class e621 implements ScrapeEngine {
       }
 
       if (tagName) {
-        let tag = new ScrapedTag(tagName, category);
+        const tag = new ScrapedTag(tagName, category);
         post.tags.push(tag);
       }
     }

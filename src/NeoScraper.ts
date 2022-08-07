@@ -5,7 +5,7 @@ export default class NeoScraper {
   engines: ScrapeEngine[] = [];
   fallbackEngine: ScrapeEngine | null = null;
 
-  constructor(useDefaultEngines: boolean = true) {
+  constructor(useDefaultEngines = true) {
     if (useDefaultEngines) {
       this.engines.push(
         new engines.AnimePictures(),
@@ -28,12 +28,7 @@ export default class NeoScraper {
     }
   }
 
-  scrapeDocument(
-    document: Document,
-    engines: string[] | null = null,
-    allowFallbackEngine: boolean = false,
-    ignoreCanImport: boolean = false
-  ): ScrapeResults {
+  scrapeDocument(document: Document, allowFallbackEngine = false, ignoreCanImport = false): ScrapeResults {
     const res = new ScrapeResults();
 
     for (const engine of this.engines) {

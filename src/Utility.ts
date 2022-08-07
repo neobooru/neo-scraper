@@ -50,7 +50,7 @@ export function getUrlExtension(url: string) {
  * @param url
  * @returns "image" | "video"
  */
-export function guessContentType(url: string): ContentType {
+export function guessContentType(url: string | undefined): ContentType {
   if (url != undefined) {
     const ext = getUrlExtension(url);
     if (videoExtensions.indexOf(ext) != -1) return "video";
@@ -109,7 +109,7 @@ export function createNoteFromDanbooruArticle(post: ScrapedPost, el: HTMLElement
       return undefined;
     }
     const num = parseInt(value);
-    if (num == NaN) {
+    if (isNaN(num)) {
       logFail(`parseInt on '${value}' returned NaN.`);
     }
     return num;
@@ -132,10 +132,10 @@ export function createNoteFromDanbooruArticle(post: ScrapedPost, el: HTMLElement
     text = htmlNoteToMarkdownNote(text);
   }
 
-  let x = getInt(data, "x");
-  let y = getInt(data, "y");
-  let w = getInt(data, "width");
-  let h = getInt(data, "height");
+  const x = getInt(data, "x");
+  const y = getInt(data, "y");
+  const w = getInt(data, "width");
+  const h = getInt(data, "height");
 
   if (!text || !x || !y || !w || !h) {
     logFail("A required data field could not be parsed.");
@@ -159,7 +159,7 @@ export function createNoteFromDanbooruArticle(post: ScrapedPost, el: HTMLElement
  * @returns
  */
 export function createNotesFromMoebooruBoxes(document: Document, boxSize: [number, number]) {
-  let notes: ScrapedNote[] = [];
+  const notes: ScrapedNote[] = [];
   const noteBoxes = Array.from(document.querySelectorAll(".note-box")).map((x) => x as HTMLLIElement);
   const noteBodies = Array.from(document.querySelectorAll(".note-body")).map((x) => x as HTMLLIElement);
 

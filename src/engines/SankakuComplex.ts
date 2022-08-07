@@ -1,17 +1,16 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapedNote } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 import { createNotesFromMoebooruBoxes, guessContentType } from "../Utility";
 
 export default class SankakuComplex extends ScrapeEngineBase {
   name = "sankakucomplex";
-
-  canImport(url: Location): boolean {
-    return url.host == "chan.sankakucomplex.com";
-  }
+  features: ScrapeEngineFeature[] = ["content", "rating", "tags", "tag_category", "notes"];
+  notes = [];
+  supportedHosts = ["chan.sankakucomplex.com"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url
@@ -76,7 +75,7 @@ export default class SankakuComplex extends ScrapeEngineBase {
       }
 
       if (tagName) {
-        let tag = new ScrapedTag(tagName, category);
+        const tag = new ScrapedTag(tagName, category);
         post.tags.push(tag);
       }
     }

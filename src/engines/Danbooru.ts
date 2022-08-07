@@ -1,17 +1,16 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapedNote } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
 import { TagCategory } from "../BooruTypes";
 import { createNoteFromDanbooruArticle, guessContentType } from "../Utility";
 
 export default class Danbooru extends ScrapeEngineBase {
   name = "danbooru";
-
-  canImport(url: Location): boolean {
-    return url.host == "danbooru.donmai.us" || url.host == "safebooru.donmai.us";
-  }
+  features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category", "source", "notes"];
+  notes = [];
+  supportedHosts = ["danbooru.donmai.us", "safebooru.donmai.us"];
 
   scrapeDocument(document: Document): ScrapeResult {
-    let result = new ScrapeResult(this.name);
-    let post = new ScrapedPost();
+    const result = new ScrapeResult(this.name);
+    const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
     // Set image url
@@ -92,7 +91,7 @@ export default class Danbooru extends ScrapeEngineBase {
       }
 
       if (tagName) {
-        let tag = new ScrapedTag(tagName, category);
+        const tag = new ScrapedTag(tagName, category);
         post.tags.push(tag);
       }
     }
