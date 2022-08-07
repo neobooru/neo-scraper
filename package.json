@@ -1,18 +1,22 @@
 {
   "name": "neo-scraper",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Scrape a booru-like post object from the DOM.",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "scripts": {
     "test": "jest",
     "test:ci": "jest --colors --silent",
+    "test:debug": "cross-env HEADLESS=false jest --testTimeout=100000000",
     "build": "tsc",
     "watch": "tsc -w",
     "prepare": "npm run build"
   },
   "author": "neobooru",
   "license": "MIT",
+  "dependencies": {
+    "turndown": "^7.1.1"
+  },
   "devDependencies": {
     "@types/expect-puppeteer": "^4.4.7",
     "@types/jest": "^26.0.14",
@@ -36,6 +40,7 @@
       "ts",
       "js"
     ],
+    "testTimeout": 15000,
     "testRegex": "^.+\\.test\\.ts$",
     "setupFilesAfterEnv": [
       "./src/test/jest.setup.ts"
@@ -45,8 +50,5 @@
         "tsconfig": "tsconfig.test.json"
       }
     }
-  },
-  "dependencies": {
-    "turndown": "^7.1.1"
   }
 }

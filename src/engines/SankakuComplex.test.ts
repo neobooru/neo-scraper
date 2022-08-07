@@ -26,7 +26,7 @@ test("get chan.sankakucomplex.com post 29354061 with notes", async () => {
   expect(res.posts.length).toBe(1);
   expect(res.posts[0]).toHaveTag("bangs");
   expect(res.posts[0]).toHaveTag("braid");
-  expect(res.posts[0]).toHaveTag("sankuro_(agoitei)");
+  expect(res.posts[0]).toHaveTag("sankuro");
   expect(res.posts[0]).toHaveTag("translated");
   expect(res.posts[0]).toHaveTag("note_translated");
   expect(res.posts[0]).toHaveNote("No.  \nI already told you...");

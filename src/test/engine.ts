@@ -1,5 +1,8 @@
 import { JSDOM, ConstructorOptions } from "jsdom";
+import { Page } from "puppeteer";
 import NeoScraper from "../NeoScraper";
+
+export const MobileUserAgent = "Mozilla/5.0 (Android 12; Mobile; rv:68.0) Gecko/68.0 Firefox/103.0";
 
 /**
  * Go to an URL and parse it's raw HTML without executing any client-side code.
@@ -17,9 +20,19 @@ export async function scrapeUrl(url: string) {
  * @param waitForSelector
  * @returns
  */
-export async function scrapeEvalUrl(url: string, waitForSelector: string) {
+export async function scrapeEvalUrl(url: string, waitForSelector: string, userAgent: string | undefined = undefined) {
+  await jestPuppeteer.resetPage();
+
+  if (userAgent) {
+    page.setUserAgent(userAgent);
+  }
+
   await page.goto(url);
   await page.waitForSelector(waitForSelector, { visible: true });
+  return scrapePage(url, page);
+}
+
+export async function scrapePage(url: string, page: Page) {
   const document = await page.content();
   return scrapeHtml(url, document);
 }
