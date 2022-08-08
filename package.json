@@ -6,12 +6,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "scripts": {
-    "test": "jest",
-    "test:ci": "jest --colors --silent",
-    "test:debug": "cross-env HEADLESS=false jest --testTimeout=100000000",
+    "test": "cross-env JEST_PUPPETEER_CONFIG=jest-puppeteer.config.cjs jest",
+    "test:ci": "cross-env JEST_PUPPETEER_CONFIG=jest-puppeteer.config.cjs jest --colors --silent",
+    "test:debug": "cross-env JEST_PUPPETEER_CONFIG=jest-puppeteer.config.cjs HEADLESS=false jest --testTimeout=100000000",
     "build": "tsc",
     "watch": "tsc -w",
-    "prepare": "npm run build",
     "lint": "eslint src scripts",
     "summary-table": "npm run build && node --experimental-specifier-resolution=node --loader ts-node/esm scripts/summary-table.ts"
   },
@@ -29,6 +28,7 @@
     "@types/turndown": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
+    "cross-env": "^7.0.3",
     "eslint": "8.7.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
