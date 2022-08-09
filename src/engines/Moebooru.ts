@@ -67,8 +67,10 @@ export default class Moebooru extends ScrapeEngineBase {
 
       if (tagNameElements.length > 1) {
         // First <a> is "?"
-        // Second <a> is "actual_tag_name"
-        tagName = tagNameElements[1].innerText;
+        // (opt) Second <a> is "+" (when logged in)
+        // (opt) Third <a> is "-" (when logged in)
+        // Last <a> is the actual tag name
+        tagName = tagNameElements[tagNameElements.length - 1].innerText;
       } else {
         // Skip if no tag name is found
         continue;
