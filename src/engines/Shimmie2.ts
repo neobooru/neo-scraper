@@ -44,7 +44,7 @@ export default class Shimmie2 extends ScrapeEngineBase {
     // Set source
     const sourceEl = document.querySelector(".image_info > tbody > tr > td > div > a") as HTMLAnchorElement;
     if (sourceEl) {
-      post.source = sourceEl.href;
+      post.sources = [sourceEl.href];
     }
 
     result.tryAddPost(post);

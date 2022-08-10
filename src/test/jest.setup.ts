@@ -52,4 +52,13 @@ expect.extend({
     }
     return { pass, message };
   },
+  toHaveSource(received: any, source: string): jest.CustomMatcherResult {
+    let pass = false;
+    const message = () => (pass ? "" : `Post does not have source '${source}'.`);
+
+    if (received instanceof ScrapedPost) {
+      pass = received.sources.find((x) => x == source) != undefined;
+    }
+    return { pass, message };
+  },
 });

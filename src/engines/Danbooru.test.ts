@@ -13,6 +13,7 @@ test("get danbooru.donmai.us post 3555872", async () => {
   expect(res.posts[0]).toHaveTag("t-shirt");
   expect(res.posts[0]).toHaveTag("long_hair");
   expect(res.posts[0]).toHaveResolution([1142, 1600]);
+  expect(res.posts[0]).toHaveSource("https://twitter.com/omatiosake/status/1124306601584672768");
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toBe(
     "https://cdn.donmai.us/original/90/33/__flint_girls_und_panzer_and_1_more_drawn_by_omachi_slabco__90332299216db81b8793084e4cb7c15d.jpg"

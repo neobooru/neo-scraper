@@ -10,7 +10,7 @@ export class ScrapedPost {
   rating: SafetyRating = "safe";
   tags: ScrapedTag[] = [];
   notes: ScrapedNote[] = [];
-  source: string | undefined;
+  sources: string[] = [];
   referrer: string | undefined;
 }
 

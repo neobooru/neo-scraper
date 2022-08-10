@@ -9,6 +9,7 @@ test("get e621.net post 380315", async () => {
   expect(res.posts[0]).toHaveTag("ambiguous_gender");
   expect(res.posts[0]).toHaveTag("low_res", "meta");
   expect(res.posts[0]).toHaveResolution([500, 500]);
+  expect(res.posts[0]).toHaveSource("https://inkinesss.deviantart.com/art/Nasus-388347996");
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toBe("https://static1.e621.net/data/92/e7/92e71bd73ab219d80516c4d9adad3db5.jpg");
 });

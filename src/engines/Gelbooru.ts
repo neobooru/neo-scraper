@@ -80,9 +80,9 @@ export default class Gelbooru extends ScrapeEngineBase {
           // If Source element
           if (matches[1] == "Source") {
             if (version == Version.v020) {
-              post.source = matches[2];
+              post.sources = [matches[2]];
             } else {
-              post.source = (el.children[0] as HTMLAnchorElement).href;
+              post.sources = [(el.children[0] as HTMLAnchorElement).href];
             }
           }
           // If Rating element

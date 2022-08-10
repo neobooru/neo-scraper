@@ -120,6 +120,7 @@ export function createNoteFromDanbooruArticle(post: ScrapedPost, el: HTMLElement
     return undefined;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = (<any>el).dataset as DOMStringMap;
 
   if (!data) {
@@ -194,8 +195,8 @@ export function parseResolutionString(str: string | undefined | null): [number, 
   // Example string: 1600x2200
   const res = str
     .split("x") // Split on 'x' character
-    .map((v, _) => v.replace(/\D/g, "")) // Remove all non-digits
-    .map((v, _) => parseInt(v)) // Parse ints
+    .map((v) => v.replace(/\D/g, "")) // Remove all non-digits
+    .map((v) => parseInt(v)) // Parse ints
     .filter(Number); // Filter NaN. Also removes the number 0, but that's fine because the resolution can't be 0.
 
   if (res.length == 2) {

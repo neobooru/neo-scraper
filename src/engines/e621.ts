@@ -82,10 +82,7 @@ export default class e621 extends ScrapeEngineBase {
 
     // Set source
     const sourceEls = Array.from(document.querySelectorAll(".source-link > a")).map((x) => x as HTMLAnchorElement);
-    // We currently only support one source.
-    if (sourceEls.length > 0) {
-      post.source = sourceEls[0].href;
-    }
+    post.sources = sourceEls.map((x) => x.href);
 
     result.tryAddPost(post);
 

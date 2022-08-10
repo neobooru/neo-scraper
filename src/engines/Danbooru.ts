@@ -101,7 +101,7 @@ export default class Danbooru extends ScrapeEngineBase {
     if (sourceEl && sourceEl.children.length > 0) {
       const sourceLink = sourceEl.children[0] as HTMLAnchorElement;
       if (sourceLink) {
-        post.source = sourceLink.href;
+        post.sources = [sourceLink.href];
       }
     }
 

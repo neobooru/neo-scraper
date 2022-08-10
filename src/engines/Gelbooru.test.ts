@@ -25,6 +25,7 @@ test("get gelbooru.com post 4925055", async () => {
   expect(res.posts[0]).toHaveTag("maosen", "artist");
   expect(res.posts[0]).toHaveTag("butterfly");
   expect(res.posts[0]).toHaveResolution([720, 1103]);
+  expect(res.posts[0]).toHaveSource("https://www.pixiv.net/artworks/76853958");
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toBe("https://img3.gelbooru.com/images/3d/03/3d03f6858637805d6473d390a4b1d8c8.jpg");
 });
@@ -45,6 +46,7 @@ test("get gelbooru.com post 6225495 with notes", async () => {
   expect(res.posts[0]).toHaveNote("But no need to worry!");
   expect(res.posts[0]).toHaveNote("You're always the best just by being yourself-!!!");
   expect(res.posts[0]).toHaveResolution([1600, 2200]);
+  expect(res.posts[0]).toHaveSource("http://www.pixiv.net/member_illust.php?mode=medium&illust_id=88721816");
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toBe("https://img3.gelbooru.com/images/af/1d/af1dd661fab6714dffc29cb38b6b2269.png");
 });
