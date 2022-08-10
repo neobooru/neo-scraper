@@ -7,6 +7,7 @@ test("get furaffinity.net post 23281942", async () => {
   expect(res.posts[0]).toHaveTag("zac");
   expect(res.posts[0]).toHaveTag("riven");
   expect(res.posts[0]).toHaveTag("pool");
+  expect(res.posts[0]).toHaveTag("nielsdejong", "artist");
   expect(res.posts[0]).toHaveResolution([1280, 1279]);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toBe(
