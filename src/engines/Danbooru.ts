@@ -55,6 +55,7 @@ export default class Danbooru extends ScrapeEngineBase {
           case "safe":
             post.rating = "safe";
             break;
+          case "sensitive":
           case "questionable":
             post.rating = "sketchy";
             break;

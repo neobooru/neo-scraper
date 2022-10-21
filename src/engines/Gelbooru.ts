@@ -127,7 +127,9 @@ export default class Gelbooru extends ScrapeEngineBase {
           // Some <li/> don't actually contain a name.
           // E.g. the sub-headers ("Copyright", "Character", "General", "Meta") on rule34.xxx
           if (nameElements.length > 0) {
-            tagName = el.getElementsByTagName("a")[0].innerText;
+            // Get the last element, because rule34.xxx also adds a "?" link in front.
+            const linkEls = Array.from(el.getElementsByTagName("a"));
+            tagName = linkEls[linkEls.length - 1].innerText;
           } else {
             continue;
           }

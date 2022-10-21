@@ -34,3 +34,15 @@ test("get danbooru.donmai.us post 4924490", async () => {
   expect(res.posts[0].notes).toHaveLength(17);
   expect(res.posts[0]).toHaveNote("Nya~nya ♪");
 });
+
+test("get danbooru.donmai.us post 4530532", async () => {
+  const pageUrl = "https://danbooru.donmai.us/posts/4530532";
+  const res = await scrapeUrl(pageUrl);
+  expect(res.posts.length).toBe(1);
+  expect(res.posts[0].rating).toBe("sketchy");
+  expect(res.posts[0]).toHaveTag("chainsaw_man", "copyright");
+  expect(res.posts[0]).toHaveResolution([1105, 1803]);
+  expect(res.posts[0].pageUrl).toBe(pageUrl);
+  expect(res.posts[0].contentUrl).toBe(
+    "https://cdn.donmai.us/original/fc/e3/__makima_power_and_reze_chainsaw_man_drawn_by_hews__fce35c7a8515a00c566b288a591fd5f9.png");
+});
