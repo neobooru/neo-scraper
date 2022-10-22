@@ -15,7 +15,7 @@ export default class Zerochan extends ScrapeEngineBase {
 
     // Set image url
     const previewElements = document.getElementsByClassName("preview");
-    if (previewElements.length > 0) {
+    if (previewElements.length > 0 && (previewElements[0] as HTMLAnchorElement).href) {
       // The preview element only exists when there is a larger size available. Preview's img element contains a downscaled version.
       post.contentUrl = (previewElements[0] as HTMLAnchorElement).href;
     } else {
