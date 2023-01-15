@@ -1,4 +1,4 @@
-import { scrapeUrl } from "../test/engine";
+import { scrapeUrl } from "../test/engine.js";
 
 test("get inkbunny.net post 2430530", async () => {
   const pageUrl = "https://inkbunny.net/s/2430530";

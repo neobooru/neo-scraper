@@ -1,4 +1,4 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
 
 export default class Inkbunny extends ScrapeEngineBase {
   name = "inkbunny";

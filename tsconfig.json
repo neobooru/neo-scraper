@@ -9,7 +9,7 @@
     "sourceMap": true,
     "strict": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "NodeNext",
     "target": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,

@@ -1,7 +1,7 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
-import { TagCategory } from "../BooruTypes";
-import { CategoryMap } from "./Common";
-import { createNoteFromDanbooruArticle, guessContentType, parseResolutionString } from "../Utility";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { TagCategory } from "../BooruTypes.js";
+import { CategoryMap } from "./Common.js";
+import { createNoteFromDanbooruArticle, guessContentType, parseResolutionString } from "../Utility.js";
 
 // Small hack to avoid screwing with semver
 enum Version {

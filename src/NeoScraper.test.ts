@@ -1,4 +1,4 @@
-import NeoScraper from "./NeoScraper";
+import NeoScraper from "./NeoScraper.js";
 
 test("create scraper with default engines", async () => {
   new NeoScraper();

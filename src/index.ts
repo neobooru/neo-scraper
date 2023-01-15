@@ -1,8 +1,8 @@
-export { default as NeoScraper } from "./NeoScraper";
-export * from "./ScrapeEngine";
+export { default as NeoScraper } from "./NeoScraper.js";
+export * from "./ScrapeEngine.js";
 
-import * as Engines from "./ScrapeEngine";
+import * as Engines from "./ScrapeEngine.js";
 export { Engines };
 
-import * as BooruTypes from "./BooruTypes";
+import * as BooruTypes from "./BooruTypes.js";
 export { BooruTypes };

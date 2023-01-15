@@ -1,4 +1,4 @@
-import { scrapeUrl } from "../test/engine";
+import { scrapeUrl } from "../test/engine.js";
 
 test("get rule34.paheal.net post 2505982", async () => {
   const pageUrl = "https://rule34.paheal.net/post/view/2505982"; // Somewhat sketchy

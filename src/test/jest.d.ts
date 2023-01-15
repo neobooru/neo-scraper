@@ -1,5 +1,5 @@
 import "jest-extended";
-import { TagCategory } from "../BooruTypes";
+import { TagCategory } from "../BooruTypes.js";
 
 declare global {
   namespace jest {

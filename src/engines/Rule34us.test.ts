@@ -1,4 +1,4 @@
-import { scrapeUrl } from "../test/engine";
+import { scrapeUrl } from "../test/engine.js";
 
 test("get rule34.us post 4646579", async () => {
   // Kinda sketchy.

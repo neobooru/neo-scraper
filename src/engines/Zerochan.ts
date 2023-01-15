@@ -1,6 +1,6 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
-import { TagCategory } from "../BooruTypes";
-import { guessContentType, parseResolutionString } from "../Utility";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { TagCategory } from "../BooruTypes.js";
+import { guessContentType, parseResolutionString } from "../Utility.js";
 
 export default class Zerochan extends ScrapeEngineBase {
   name = "zerochan";

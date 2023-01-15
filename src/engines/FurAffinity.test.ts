@@ -1,4 +1,4 @@
-import { scrapeUrl } from "../test/engine";
+import { scrapeUrl } from "../test/engine.js";
 
 test("get furaffinity.net post 23281942", async () => {
   const pageUrl = "https://www.furaffinity.net/view/23281942/";

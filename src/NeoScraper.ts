@@ -1,5 +1,5 @@
-import { ScrapeEngine, ScrapeResults } from "./ScrapeEngine";
-import * as engines from "./engines";
+import { ScrapeEngine, ScrapeResults } from "./ScrapeEngine.js";
+import * as engines from "./engines/index.js";
 
 export default class NeoScraper {
   engines: ScrapeEngine[] = [];

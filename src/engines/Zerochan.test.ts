@@ -1,4 +1,4 @@
-import { scrapeUrl } from "../test/engine";
+import { scrapeUrl } from "../test/engine.js";
 
 test("get zerochan.net post 2934998", async () => {
   const pageUrl = "https://www.zerochan.net/2934998";

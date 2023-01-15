@@ -1,6 +1,6 @@
 import { JSDOM } from "jsdom";
-import { TagCategory } from "../BooruTypes";
-import { ScrapedPost } from "../ScrapeEngine";
+import { TagCategory } from "../BooruTypes.js";
+import { ScrapedPost } from "../ScrapeEngine.js";
 
 // Expose JSDOM Element constructor
 global.Element = new JSDOM().window.Element;

@@ -1,6 +1,6 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
-import { TagCategory } from "../BooruTypes";
-import { createNotesFromMoebooruBoxes, guessContentType } from "../Utility";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { TagCategory } from "../BooruTypes.js";
+import { createNotesFromMoebooruBoxes, guessContentType } from "../Utility.js";
 
 export default class SankakuComplex extends ScrapeEngineBase {
   name = "sankakucomplex";

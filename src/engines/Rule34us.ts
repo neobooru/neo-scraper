@@ -1,10 +1,10 @@
 // Technically speaking rule34.us also uses gelbooru, albeit a (heavily?) modified one.
 // Because pretty much no scraper code can be shared with other gelbooru-likes it makes more sense to create a new engine for rule34.us.
 
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
-import { TagCategory } from "../BooruTypes";
-import { CategoryMap } from "./Common";
-import { guessContentType, parseResolutionString } from "../Utility";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { TagCategory } from "../BooruTypes.js";
+import { CategoryMap } from "./Common.js";
+import { guessContentType, parseResolutionString } from "../Utility.js";
 
 export default class Gelbooru extends ScrapeEngineBase {
   name = "rule34us";

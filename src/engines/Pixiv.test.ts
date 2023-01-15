@@ -1,6 +1,6 @@
-import { ScrapeResults } from "../ScrapeEngine";
-import { MobileUserAgent, scrapeEvalUrl, scrapePage } from "../test/engine";
-import { upgradeUrlToOriginalQuality } from "./Pixiv";
+import { ScrapeResults } from "../ScrapeEngine.js";
+import { MobileUserAgent, scrapeEvalUrl, scrapePage } from "../test/engine.js";
+import { upgradeUrlToOriginalQuality } from "./Pixiv.js";
 
 test("upgradeUrlToOriginalQuality", async () => {
   expect(

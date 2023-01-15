@@ -1,4 +1,4 @@
-import { scrapeUrl } from "../test/engine";
+import { scrapeUrl } from "../test/engine.js";
 
 test("get chan.sankakucomplex.com post 19614481 with notes", async () => {
   const pageUrl = "https://chan.sankakucomplex.com/post/show/19614481";

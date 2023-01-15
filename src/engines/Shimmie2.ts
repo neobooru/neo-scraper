@@ -1,5 +1,5 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
-import { guessContentType } from "../Utility";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { guessContentType } from "../Utility.js";
 
 export default class Shimmie2 extends ScrapeEngineBase {
   name = "shimmie2";

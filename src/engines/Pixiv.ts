@@ -1,5 +1,5 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapeEngineFeature } from "../ScrapeEngine";
-import { guessContentType } from "../Utility";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { guessContentType } from "../Utility.js";
 
 export function upgradeUrlToOriginalQuality(imgLink: string) {
   if (imgLink.indexOf("img-master") != -1) {

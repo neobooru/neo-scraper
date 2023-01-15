@@ -1,6 +1,6 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
-import { TagCategory } from "../BooruTypes";
-import { createNoteFromDanbooruArticle, guessContentType } from "../Utility";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { TagCategory } from "../BooruTypes.js";
+import { createNoteFromDanbooruArticle, guessContentType } from "../Utility.js";
 
 export default class Danbooru extends ScrapeEngineBase {
   name = "danbooru";

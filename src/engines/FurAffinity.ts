@@ -1,5 +1,5 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine";
-import { guessContentType, parseResolutionString } from "../Utility";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { guessContentType, parseResolutionString } from "../Utility.js";
 
 export default class FurAffinity extends ScrapeEngineBase {
   name = "furaffinity";

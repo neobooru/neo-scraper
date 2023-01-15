@@ -1,5 +1,5 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ContentType, ScrapeEngineFeature } from "../ScrapeEngine";
-import { guessContentType } from "../Utility";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ContentType, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { guessContentType } from "../Utility.js";
 
 class MediaElement {
   constructor(

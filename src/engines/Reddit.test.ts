@@ -1,4 +1,4 @@
-import { scrapeUrl } from "../test/engine";
+import { scrapeUrl } from "../test/engine.js";
 
 test("get old.reddit.com post", async () => {
   const pageUrl = "https://old.reddit.com/r/IceCreamWaifu/comments/ce0wgh/rtx_2018_neo_luluchan92/";

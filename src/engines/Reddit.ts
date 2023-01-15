@@ -1,5 +1,5 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapeEngineFeature } from "../ScrapeEngine";
-import { guessContentType } from "../Utility";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { guessContentType } from "../Utility.js";
 
 export default class Reddit extends ScrapeEngineBase {
   name = "reddit";

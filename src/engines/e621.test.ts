@@ -1,4 +1,4 @@
-import { scrapeUrl } from "../test/engine";
+import { scrapeUrl } from "../test/engine.js";
 
 test("get e621.net post 380315", async () => {
   const pageUrl = "https://e621.net/posts/380315?q=league_of_legends+rating%3Asafe+order%3Ascore";

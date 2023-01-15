@@ -1,4 +1,4 @@
-import { getUrlExtension, guessContentType } from "./Utility";
+import { getUrlExtension, guessContentType } from "./Utility.js";
 
 test("getUrlExtension", () => {
   expect(getUrlExtension("image.png")).toBe("png");

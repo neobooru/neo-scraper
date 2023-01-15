@@ -1,4 +1,4 @@
-import { scrapeUrl } from "../test/engine";
+import { scrapeUrl } from "../test/engine.js";
 
 test("get safebooru.org post 2871532", async () => {
   const pageUrl = "https://safebooru.org/index.php?page=post&s=view&id=2871532";

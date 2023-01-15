@@ -1,3 +1,3 @@
-import { TagCategory } from "../BooruTypes";
+import { TagCategory } from "../BooruTypes.js";
 
 export type CategoryMap = Record<string, TagCategory>;

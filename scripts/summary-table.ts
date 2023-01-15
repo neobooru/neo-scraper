@@ -1,5 +1,5 @@
-import NeoScraper from "../src/NeoScraper";
-import FallbackEngine from "../src/engines/Fallback";
+import NeoScraper from "../src/NeoScraper.js";
+import FallbackEngine from "../src/engines/Fallback.js";
 
 const engines = [...new NeoScraper().engines, new FallbackEngine()];
 const txt = ["| Engine | Sites | Features | Notes |", "|---|---|---|---|---|"];

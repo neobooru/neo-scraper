@@ -1,6 +1,6 @@
 import { JSDOM, ConstructorOptions } from "jsdom";
 import { Page } from "puppeteer";
-import NeoScraper from "../NeoScraper";
+import NeoScraper from "../NeoScraper.js";
 
 export const MobileUserAgent = "Mozilla/5.0 (Android 12; Mobile; rv:68.0) Gecko/68.0 Firefox/103.0";
 

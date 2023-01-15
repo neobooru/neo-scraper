@@ -1,4 +1,4 @@
-import { scrapeUrl } from "../test/engine";
+import { scrapeUrl } from "../test/engine.js";
 
 test("get anime-pictures.net post 729833", async () => {
   const pageUrl = "https://anime-pictures.net/pictures/view_post/729833?lang=en";

@@ -1,5 +1,5 @@
 import TurndownService from "turndown";
-import { ContentType, ScrapedNote, ScrapedPost } from "./ScrapeEngine";
+import { ContentType, ScrapedNote, ScrapedPost } from "./ScrapeEngine.js";
 
 // https://github.com/sindresorhus/video-extensions/blob/main/video-extensions.json
 export const videoExtensions = [

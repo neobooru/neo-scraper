@@ -1,5 +1,5 @@
-import { ScrapeResults } from "../ScrapeEngine";
-import { scrapeEvalUrl } from "../test/engine";
+import { ScrapeResults } from "../ScrapeEngine.js";
+import { scrapeEvalUrl } from "../test/engine.js";
 
 describe("get twitter.com post", () => {
   const pageUrl = "https://twitter.com/Dishwasher1910/status/1171162651461746688/photo/1";

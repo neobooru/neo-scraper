@@ -1,4 +1,4 @@
-import { TagCategory, SafetyRating } from "./BooruTypes";
+import { TagCategory, SafetyRating } from "./BooruTypes.js";
 
 export type ContentType = "image" | "video";
 

@@ -1,4 +1,4 @@
-import { scrapeUrl, scrapeEvalUrl } from "../test/engine";
+import { scrapeUrl, scrapeEvalUrl } from "../test/engine.js";
 
 test("get yande.re post 438510", async () => {
   const pageUrl = "https://yande.re/post/show/438510";
