@@ -35,6 +35,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "jest": "^26.6.3",
     "jest-puppeteer": "^6.0.0",
+    "jest-ts-webcompat-resolver": "^1.0.0",
     "jsdom": "^15.2.1",
     "prettier": "2.5.1",
     "puppeteer": "^13.1.2",
@@ -48,6 +49,7 @@
   },
   "jest": {
     "preset": "./jest.preset.cjs",
+    "resolver": "jest-ts-webcompat-resolver",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

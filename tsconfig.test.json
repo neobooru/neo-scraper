@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
     "lib": [
-      "es2019",
-      "dom",
-      "dom.iterable"
+      "ES2019",
+      "DOM",
+      "DOM.Iterable"
     ],
     "outDir": "./dist/",
     "sourceMap": true,
     "strict": true,
-    "module": "es2015",
-    "moduleResolution": "node",
-    "target": "es2015",
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "target": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "removeComments": true,
