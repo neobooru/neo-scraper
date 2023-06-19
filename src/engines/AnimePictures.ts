@@ -12,7 +12,6 @@ export default class AnimePictures extends ScrapeEngineBase {
     const result = new ScrapeResult(this.name);
     const post = new ScrapedPost();
     post.pageUrl = document.location.href;
-    
 
     // Set image url
     const originalImageElements = Array.from(document.getElementsByClassName("download_icon"));
@@ -28,9 +27,7 @@ export default class AnimePictures extends ScrapeEngineBase {
     post.rating = "safe"; // Probably
 
     // Set resolution
-    const postContentLinkEls = Array.from(
-      document.querySelectorAll<HTMLAnchorElement>("#content > div > .post_content > a")
-    );
+    const postContentLinkEls = Array.from(document.querySelectorAll<HTMLAnchorElement>(".post_content > .body a"));
     const resEl = postContentLinkEls.find((x) => x.href.indexOf("res_x") != -1);
     if (resEl) {
       post.resolution = parseResolutionString(resEl.innerText);

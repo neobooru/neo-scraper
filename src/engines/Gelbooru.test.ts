@@ -34,7 +34,6 @@ test("get gelbooru.com post 6225495 with notes", async () => {
   const pageUrl = "https://gelbooru.com/index.php?page=post&s=view&id=6225495";
   const res = await scrapeUrl(pageUrl);
   expect(res.posts.length).toBe(1);
-  expect(res.posts[0]).toHaveTag("bangs");
   expect(res.posts[0]).toHaveTag("hair_up");
   expect(res.posts[0]).toHaveTag("hair_up");
   expect(res.posts[0]).toHaveTag("teeth");
@@ -56,7 +55,7 @@ test("get rule34.xxx post 2740994", async () => {
   const res = await scrapeUrl(pageUrl);
   expect(res.posts[0]).toHaveTag("fire_emblem", "copyright");
   expect(res.posts[0]).toHaveTag("nintendo", "copyright");
-  expect(res.posts[0]).toHaveTag("lucina", "character");
+  expect(res.posts[0]).toHaveTag("lucina_(fire_emblem)", "character");
   expect(res.posts[0]).toHaveTag("blue_hair");
   expect(res.posts[0]).toHaveTag("solo");
   expect(res.posts[0]).toHaveResolution([600, 800]);

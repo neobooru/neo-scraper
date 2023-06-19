@@ -7,7 +7,6 @@ test("get danbooru.donmai.us post 3555872", async () => {
   expect(res.posts[0]).toHaveTag("omachi_(slabco)", "artist");
   expect(res.posts[0]).toHaveTag("dr_pepper", "copyright");
   expect(res.posts[0]).toHaveTag("flint_(girls_und_panzer)", "character");
-  expect(res.posts[0]).toHaveTag("bangs");
   expect(res.posts[0]).toHaveTag("shirt");
   expect(res.posts[0]).toHaveTag("skirt");
   expect(res.posts[0]).toHaveTag("t-shirt");
@@ -44,5 +43,6 @@ test("get danbooru.donmai.us post 4530532", async () => {
   expect(res.posts[0]).toHaveResolution([1105, 1803]);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toBe(
-    "https://cdn.donmai.us/original/fc/e3/__makima_power_and_reze_chainsaw_man_drawn_by_hews__fce35c7a8515a00c566b288a591fd5f9.png");
+    "https://cdn.donmai.us/original/fc/e3/__makima_power_and_reze_chainsaw_man_drawn_by_hews__fce35c7a8515a00c566b288a591fd5f9.png"
+  );
 });

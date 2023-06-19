@@ -52,7 +52,8 @@ export default class Zerochan extends ScrapeEngineBase {
       }
 
       let category: TagCategory | undefined;
-      switch (tagElement.className) {
+      const className = tagElement.className.replace("emphasis", "").trim();
+      switch (className) {
         case "game":
         case "series":
         case "studio":

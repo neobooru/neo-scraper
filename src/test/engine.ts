@@ -1,5 +1,4 @@
 import { JSDOM, ConstructorOptions } from "jsdom";
-import { Page } from "puppeteer";
 import NeoScraper from "../NeoScraper.js";
 
 export const MobileUserAgent = "Mozilla/5.0 (Android 12; Mobile; rv:68.0) Gecko/68.0 Firefox/103.0";
@@ -32,7 +31,7 @@ export async function scrapeEvalUrl(url: string, waitForSelector: string, userAg
   return scrapePage(url, page);
 }
 
-export async function scrapePage(url: string, page: Page) {
+export async function scrapePage(url: string, page: any) {
   const document = await page.content();
   return scrapeHtml(url, document);
 }

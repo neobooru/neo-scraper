@@ -31,19 +31,21 @@ export default class Pixiv extends ScrapeEngineBase {
     const result = new ScrapeResult(this.name);
     const imgLinks = [] as string[];
 
-    // Query for when the user is on the desktop site, is logged in, and has optionally clicked on "See all".
-    // If the user has not clicked on "See all" then this will only grab the first post.
+    // Query for when the user is on the desktop site, is logged in, and has optionally clicked on "Show all".
+    // If the user has not clicked on "Show all" then this will only grab the first post.
     imgLinks.push(
       ...Array.from(document.querySelectorAll<HTMLAnchorElement>("div[role='presentation'] > a")).map((x) => x.href)
     );
 
     if (imgLinks.length == 0) {
       // Query for when the user is on the desktop site and not logged in.
-      imgLinks.push(...Array.from(document.querySelectorAll<HTMLImageElement>("img[srcset]")).map((x) => x.src));
+      imgLinks.push(
+        ...Array.from(document.querySelectorAll<HTMLImageElement>("div[role='presentation'] img")).map((x) => x.src)
+      );
     }
 
     if (imgLinks.length == 0) {
-      // Query for when the user is on the mobile site, and has clicked on "See all".
+      // Query for when the user is on the mobile site, and has clicked on "Show all".
       // This only works on pages with multiple posts. The user can optionally be logged in.
       imgLinks.push(
         ...Array.from(document.querySelectorAll<HTMLImageElement>(".manga-page > a > img[data-big]")).map(
