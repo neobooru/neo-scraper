@@ -1,6 +1,7 @@
 export { default as AnimePictures } from "./AnimePictures.js";
 export { default as Danbooru } from "./Danbooru.js";
 export { default as e621 } from "./e621.js";
+export { default as Ehentai } from "./Ehentai.js";
 export { default as Fallback } from "./Fallback.js";
 export { default as FurAffinity } from "./FurAffinity.js";
 export { default as Gelbooru } from "./Gelbooru.js";

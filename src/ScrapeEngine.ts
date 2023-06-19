@@ -1,17 +1,21 @@
 import { TagCategory, SafetyRating } from "./BooruTypes.js";
 
+export type Cookies = { [key: string]: string };
 export type ContentType = "image" | "video";
 
 export class ScrapedPost {
   contentUrl = "";
   pageUrl = "";
   contentType: ContentType = "image";
+  contentSize: number | undefined;
   resolution: [number, number] | undefined;
   rating: SafetyRating = "safe";
   tags: ScrapedTag[] = [];
   notes: ScrapedNote[] = [];
   sources: string[] = [];
   referrer: string | undefined;
+  extraContentUrl: string | undefined;
+  cookies: Cookies | undefined;
 }
 
 export class ScrapedTag {
@@ -60,7 +64,16 @@ export class ScrapeResults {
   }
 }
 
-export type ScrapeEngineFeature = "content" | "rating" | "resolution" | "tags" | "tag_category" | "source" | "notes";
+export type ScrapeEngineFeature =
+  | "content"
+  | "rating"
+  | "resolution"
+  | "tags"
+  | "tag_category"
+  | "source"
+  | "notes"
+  | "extra_content"
+  | "cookies";
 
 export interface ScrapeEngine {
   name: string;
