@@ -1,6 +1,6 @@
 import { scrapeUrl } from "../test/engine.js";
 
-test("get derpibooru.org post 380315", async () => {
+test("get derpibooru.org post 3153524", async () => {
   const pageUrl = "https://derpibooru.org/images/3153524";
   const res = await scrapeUrl(pageUrl);
   expect(res.posts.length).toBe(1);
