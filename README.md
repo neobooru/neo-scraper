@@ -1,6 +1,6 @@
-# SzuruChrome
+# neo-scraper
 
-Chrome/Firefox extension which can import media from various sites into a [szurubooru](https://github.com/rr-/szurubooru) instance.
+Scrape a booru-like post object from the DOM.
 
 ## Supported sites
 
@@ -23,44 +23,3 @@ Chrome/Firefox extension which can import media from various sites into a [szuru
 | twitter        | twitter.com, mobile.twitter.com                                                                          | content                                                        |                                                                                 |
 | zerochan       | www.zerochan.net                                                                                         | content, resolution, tags, tag_category                        | Rating is assumed to be safe.                                                   |
 | fallback       |                                                                                                          | content                                                        | Tries to find the largest image or video on the current page.                   |
-
-## Installation
-
-For development see [build/debug](#Builddebug).
-
-### Firefox
-
-Just download the .xpi from [release tab](https://github.com/neobooru/SzuruChrome/releases) and install it.
-
-### Chrome
-
-I can't create a valid .crx file, which means that you'll have to use [Chrome's "Load unpacked extension"](https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked) feature.
-You can download a .zip containing the needed files from the [release tab](https://github.com/neobooru/SzuruChrome/releases). Check [this stackoverflow answer](https://stackoverflow.com/a/38011386) if you want to get rid of the developer extension popup.
-
-## Build/debug
-
-```sh
-# Install node modules
-pnpm install
-
-# Live dev build (watch)
-pnpm dev
-
-# Production build
-pnpm build
-```
-
-After this you can load them in your browser.  
-Chrome: `chrome://extensions/` → "Load unpacked" → Select `./dist` folder  
-Firefox: `about:debugging` → "Load Temporary Add-on..." → Select any file in the `./dist` folder (it will load all files)
-
-See [the developer docs](./docs/DEVELOPER.md) for more information.
-
-## Planned features
-
-These are some things I might work on. Though honestly I don't expect this extension to change much anytime soon.
-
-- Finishing the initial version of this add-on (see visual design doc for all features)
-- Right click any image on a page to import it
-- Configurable list of tags to always ignore (e.g. tagme, highres)
-- [low priority] Import artist commentary
