@@ -1,5 +1,5 @@
 import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
-import { TagCategory } from "../BooruTypes.js";
+import { SafetyRating, TagCategory } from "../BooruTypes.js";
 
 export default class Philomena extends ScrapeEngineBase {
   name = "Philomena";
@@ -14,6 +14,17 @@ export default class Philomena extends ScrapeEngineBase {
     "manebooru.art",
     "twibooru.org",
   ];
+  safetyMap = new Map<string, SafetyRating>([
+    ["safe", "safe"],
+    ["suggestive", "sketchy"],
+    ["questionable", "sketchy"],
+    ["explicit", "unsafe"],
+  ]);
+  categoryMap = new Map<string, TagCategory>([
+    ["character", "character"],
+    ["species", "species"],
+    ["oc", "character"],
+  ]);
 
   scrapeDocument(document: Document): ScrapeResult {
     const result = new ScrapeResult(this.name);
@@ -21,9 +32,7 @@ export default class Philomena extends ScrapeEngineBase {
     post.pageUrl = document.location.href;
 
     // Set image url
-    const downloadEl = document.querySelector(
-      "div[id^='image_meta_'] > div:nth-child(4) > a:nth-child(4)"
-    ) as HTMLAnchorElement;
+    const downloadEl = document.querySelector("a[title='Download (no tags in filename)']") as HTMLAnchorElement;
     post.contentUrl = downloadEl?.href;
 
     // Set content type
@@ -35,26 +44,34 @@ export default class Philomena extends ScrapeEngineBase {
     post.rating = "unsafe";
 
     // Set tags
-    const tagEls = Array.from(document.querySelectorAll("a.tag__name")).map((x) => x as HTMLLIElement);
+    const tagEls = Array.from(document.querySelectorAll(".tag.dropdown")).map((x) => x as HTMLSpanElement);
 
     for (const el of tagEls) {
-      const tagName = el.innerText;
-      let category: TagCategory | undefined;
+      let tagName = el.getAttribute("data-tag-name");
+      if (!tagName) continue;
 
       // Set rating (philomena uses tags for this)
-      switch (tagName) {
-        case "safe":
-          post.rating = "safe";
-          break;
-        case "suggestive":
-          post.rating = "sketchy";
-          break;
-        case "questionable":
-          post.rating = "sketchy";
-          break;
-        case "explicit":
-          post.rating = "unsafe";
-          break;
+      // These tags also have `data-tag-category="rating"` which we could use.
+      const safety = this.safetyMap.get(tagName);
+      if (safety != undefined) {
+        post.rating = safety;
+        // Don't add this as a tag.
+        continue;
+      }
+
+      let category: TagCategory | undefined;
+      const artistMatches = tagName.match("artist:(.*)");
+      if (artistMatches && artistMatches.length == 2) {
+        tagName = artistMatches[1];
+        category = "artist";
+      }
+
+      const dataTagCategory = el.getAttribute("data-tag-category");
+      if (dataTagCategory) {
+        const mappedCategory = this.categoryMap.get(dataTagCategory);
+        if (mappedCategory) {
+          category = mappedCategory;
+        }
       }
 
       if (tagName) {
