@@ -7,6 +7,7 @@ export { default as FurAffinity } from "./FurAffinity.js";
 export { default as Gelbooru } from "./Gelbooru.js";
 export { default as Inkbunny } from "./Inkbunny.js";
 export { default as Moebooru } from "./Moebooru.js";
+export { default as Philomena } from "./Philomena.js";
 export { default as Pixiv } from "./Pixiv.js";
 export { default as Reddit } from "./Reddit.js";
 export { default as Rule34us } from "./Rule34us.js";
