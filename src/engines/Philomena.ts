@@ -26,10 +26,6 @@ export default class Philomena extends ScrapeEngineBase {
 
     // Set tags
     const tagEls = Array.from(document.querySelectorAll("a.tag__name")).map((x) => x as HTMLLIElement);
-	// Workaround for forked builds of philomena
-	if (tagEls.length === 0) {
-		
-	}
 	
 	for (const el of tagEls) {
       const tagName = (el.innerText);
