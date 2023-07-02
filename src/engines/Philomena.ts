@@ -14,6 +14,9 @@ export default class Philomena extends ScrapeEngineBase {
     "manebooru.art",
     "twibooru.org",
   ];
+  removePrefixes = ["artist", "editor", "character", "species", "oc", "ship"];
+  removeprefixesSuffix = new Map([["oc", "_(oc)"]]);
+  artistPrefixes = ["artist", "editor"];
   safetyMap = new Map<string, SafetyRating>([
     ["safe", "safe"],
     ["suggestive", "sketchy"],
@@ -24,6 +27,7 @@ export default class Philomena extends ScrapeEngineBase {
     ["character", "character"],
     ["species", "species"],
     ["oc", "character"],
+    ["content-official", "copyright"],
   ]);
 
   scrapeDocument(document: Document): ScrapeResult {
@@ -60,12 +64,8 @@ export default class Philomena extends ScrapeEngineBase {
       }
 
       let category: TagCategory | undefined;
-      const artistMatches = tagName.match("artist:(.*)");
-      if (artistMatches && artistMatches.length == 2) {
-        tagName = artistMatches[1];
-        category = "artist";
-      }
 
+      // Categorize tags using data-tag-category
       const dataTagCategory = el.getAttribute("data-tag-category");
       if (dataTagCategory) {
         const mappedCategory = this.categoryMap.get(dataTagCategory);
@@ -74,6 +74,30 @@ export default class Philomena extends ScrapeEngineBase {
         }
       }
 
+      // Artist tag categorize using prefixes
+      for (const prefix of this.artistPrefixes) {
+        if (tagName.includes(prefix + ":")) {
+          category = "artist";
+          break;
+        }
+      }
+
+      // Remove listed prefixes (removePrefixes) from tagName
+      for (const prefix of this.removePrefixes) {
+        if (tagName.includes(prefix + ":")) {
+          tagName = tagName.replace(prefix + ":", "").trim();
+
+          // Add suffix if configured
+          const suffix = this.removeprefixesSuffix.get(prefix);
+          if (suffix) {
+            tagName = tagName + suffix;
+          }
+
+          break;
+        }
+      }
+
+      // Push tag
       if (tagName) {
         const tag = new ScrapedTag(tagName, category);
         post.tags.push(tag);
