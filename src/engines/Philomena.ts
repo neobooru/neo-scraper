@@ -3,7 +3,7 @@ import { SafetyRating, TagCategory } from "../BooruTypes.js";
 
 export default class Philomena extends ScrapeEngineBase {
   name = "Philomena";
-  features: ScrapeEngineFeature[] = ["content", "rating", "tags", "source"];
+  features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category", "source"];
   notes = [];
   supportedHosts = [
     "derpibooru.org",
@@ -46,6 +46,13 @@ export default class Philomena extends ScrapeEngineBase {
 
     // Set default rating (Will be determined later)
     post.rating = "unsafe";
+
+    // Set resolution
+    const resolutionEl = ((<HTMLElement>document.querySelector("span[class='image-size']"))?.innerText).split(" ")[0];
+    const [width, height] = (resolutionEl?.replace("&nbsp;", "").split("x") || []).map(Number);
+    if (!isNaN(width) && !isNaN(height)) {
+      post.resolution = [width, height];
+    }
 
     // Set tags
     const tagEls = Array.from(document.querySelectorAll(".tag.dropdown")).map((x) => x as HTMLSpanElement);
