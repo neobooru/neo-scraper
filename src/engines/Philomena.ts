@@ -1,5 +1,6 @@
 import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
 import { SafetyRating, TagCategory } from "../BooruTypes.js";
+import { parseResolutionString } from "../Utility.js";
 
 export default class Philomena extends ScrapeEngineBase {
   name = "Philomena";
@@ -15,7 +16,7 @@ export default class Philomena extends ScrapeEngineBase {
     "twibooru.org",
   ];
   removePrefixes = ["artist", "editor", "character", "species", "oc", "ship"];
-  removeprefixesSuffix = new Map([["oc", "_(oc)"]]);
+  removePrefixesSuffix = new Map([["oc", "_(oc)"]]);
   artistPrefixes = ["artist", "editor"];
   safetyMap = new Map<string, SafetyRating>([
     ["safe", "safe"],
@@ -48,10 +49,12 @@ export default class Philomena extends ScrapeEngineBase {
     post.rating = "unsafe";
 
     // Set resolution
-    const resolutionEl = ((<HTMLElement>document.querySelector("span[class='image-size']"))?.innerText).split(" ")[0];
-    const [width, height] = (resolutionEl?.replace("&nbsp;", "").split("x") || []).map(Number);
-    if (!isNaN(width) && !isNaN(height)) {
-      post.resolution = [width, height];
+    const resStr = (<HTMLElement>document.querySelector("span[class='image-size']"))?.innerText?.split(" ")[0];
+    if (resStr) {
+      const res = parseResolutionString(resStr);
+      if (res) {
+        post.resolution = res;
+      }
     }
 
     // Set tags
@@ -95,7 +98,7 @@ export default class Philomena extends ScrapeEngineBase {
           tagName = tagName.replace(prefix + ":", "").trim();
 
           // Add suffix if configured
-          const suffix = this.removeprefixesSuffix.get(prefix);
+          const suffix = this.removePrefixesSuffix.get(prefix);
           if (suffix) {
             tagName = tagName + suffix;
           }
