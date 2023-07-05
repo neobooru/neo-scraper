@@ -76,3 +76,21 @@ test("get konachan.com post 285782 with notes", async () => {
   );
   expect(res.posts[0]).toHaveSource("https://www.pixiv.net/member_illust.php?mode=medium&illust_id=75747354");
 });
+
+test("get konachan.com post 358247 jpeg and png", async () => {
+  const pageUrl = "https://konachan.com/post/show/358247/3d-animal_ears-arknights-black_hair-blonde_hair-br";
+  const res = await scrapeUrl(pageUrl);
+  expect(res.posts.length).toBe(2);
+  expect(res.posts[0]).toHaveTag("texas_(arknights)", "character");
+  expect(res.posts[0]).toHaveResolution([6144, 3456]);
+  expect(res.posts[0].pageUrl).toBe(pageUrl);
+  expect(res.posts[0].contentUrl).toBe(
+    "https://konachan.com/image/56983a2166a13f4af963774ccd424f0e/Konachan.com%20-%20358247%203d%20arknights%20computer%20couch%20dress%20drink%20gloves%20gun%20halo%20hoodie%20necklace%20pantyhose%20red_eyes%20red_hair%20shirt%20shorts%20skirt%20tie%20twintails%20weapon%20wolfgirl.png"
+  );
+  expect(res.posts[0]).toHaveSource("https://www.pixiv.net/en/artworks/108925945");
+
+  // JPEG variant
+  expect(res.posts[1].contentUrl).toBe(
+    "https://konachan.com/jpeg/56983a2166a13f4af963774ccd424f0e/Konachan.com%20-%20358247%203d%20arknights%20computer%20couch%20dress%20drink%20gloves%20gun%20halo%20hoodie%20necklace%20pantyhose%20red_eyes%20red_hair%20shirt%20shorts%20skirt%20tie%20twintails%20weapon%20wolfgirl.jpg"
+  );
+});

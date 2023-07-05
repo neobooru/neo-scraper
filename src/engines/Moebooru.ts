@@ -110,6 +110,18 @@ export default class Moebooru extends ScrapeEngineBase {
       post.notes = createNotesFromMoebooruBoxes(document, boxSize);
     }
 
+    // Sometimes there is both a JPEG and a PNG version of a post.
+    // If this is the case, copy all the information from the JPEG
+    // version and only replace the contentUrl with the link to the PNG version.
+    // We want to add this PNG version before the other version, so that it appears on top.
+    const unchangedImgEl = document.querySelector<HTMLAnchorElement>("a.original-file-unchanged");
+    if (unchangedImgEl && unchangedImgEl.href != post.contentUrl) {
+      const copy = Object.assign(new ScrapedPost(), post);
+      copy.contentUrl = unchangedImgEl.href;
+      result.tryAddPost(copy);
+    }
+
+    // Add normal/non-png post.
     result.tryAddPost(post);
 
     return result;
