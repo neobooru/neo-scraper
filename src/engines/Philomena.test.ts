@@ -28,3 +28,16 @@ test("get derpibooru.org post 3157356", async () => {
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].contentUrl).toBe("https://derpicdn.net/img/download/2023/7/5/3157356.png");
 });
+
+test("get derpibooru.org video post 3161674", async () => {
+  const pageUrl = "https://derpibooru.org/images/3161674?q=video";
+  const res = await scrapeUrl(pageUrl);
+  expect(res.posts.length).toBe(1);
+  expect(res.posts[0].rating).toBe("safe");
+  expect(res.posts[0]).not.toHaveTag("safe");
+  expect(res.posts[0]).toHaveTag("oc");
+  expect(res.posts[0]).toHaveTag("rainbow_dash", "character");
+  expect(res.posts[0]).toHaveResolution([1920, 1080]);
+  expect(res.posts[0].pageUrl).toBe(pageUrl);
+  expect(res.posts[0].contentUrl).toBe("https://derpicdn.net/img/download/2023/7/12/3161674.webm");
+});

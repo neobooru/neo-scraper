@@ -49,7 +49,9 @@ export default class Philomena extends ScrapeEngineBase {
     post.rating = "unsafe";
 
     // Set resolution
-    const resStr = (<HTMLElement>document.querySelector("span[class='image-size']"))?.innerText?.match(/(\d+x\d+)/)?.[0];
+    const resStr = (<HTMLElement>document.querySelector("span[class='image-size']"))?.innerText?.match(
+      /(\d+x\d+)/
+    )?.[0];
     if (resStr) {
       const res = parseResolutionString(resStr);
       if (res) {
