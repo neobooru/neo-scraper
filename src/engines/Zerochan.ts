@@ -52,7 +52,7 @@ export default class Zerochan extends ScrapeEngineBase {
       }
 
       let category: TagCategory | undefined;
-      const className = tagElement.className.replace("emphasis", "").trim();
+      const className = tagElement.classList[0];
       switch (className) {
         case "game":
         case "series":
@@ -60,7 +60,6 @@ export default class Zerochan extends ScrapeEngineBase {
           category = "copyright";
           break;
         case "character":
-        case "character group":
           category = "character";
           break;
         case "mangaka":
