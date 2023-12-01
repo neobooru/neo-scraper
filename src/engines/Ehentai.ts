@@ -19,7 +19,7 @@ export default class Ehentai extends ScrapeEngineBase {
       post.contentUrl = imgUrl.src;
     }
 
-    const originalSourceUrl = document.querySelector("a[href*='fullimg.php']") as HTMLAnchorElement;
+    const originalSourceUrl = document.querySelector("a[href*='fullimg']") as HTMLAnchorElement;
     if (originalSourceUrl) {
       // Set "extra" image url. This URL only gives a good response if the cookies are included.
       // This might also only work on certain accounts.
