@@ -13,6 +13,7 @@ test("get safebooru.org post 2871532", async () => {
   expect(res.posts[0]).toHaveTag("long_hair");
   expect(res.posts[0]).toHaveResolution([1142, 1600]);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
+  expect(res.posts[0].rating).toBe("safe");
   expect(res.posts[0].contentUrl).toBe(
     "https://safebooru.org//images/2757/5f19c7744db918c3d4c4c6035bc65dfa9e18866f.jpg"
   );
@@ -27,6 +28,7 @@ test("get gelbooru.com post 4925055", async () => {
   expect(res.posts[0]).toHaveResolution([720, 1103]);
   expect(res.posts[0]).toHaveSource("https://www.pixiv.net/artworks/76853958");
   expect(res.posts[0].pageUrl).toBe(pageUrl);
+  expect(res.posts[0].rating).toBe("sketchy");
   expect(res.posts[0].contentUrl).toBe("https://img3.gelbooru.com/images/3d/03/3d03f6858637805d6473d390a4b1d8c8.jpg");
 });
 
@@ -47,6 +49,7 @@ test("get gelbooru.com post 6225495 with notes", async () => {
   expect(res.posts[0]).toHaveResolution([1600, 2200]);
   expect(res.posts[0]).toHaveSource("http://www.pixiv.net/member_illust.php?mode=medium&illust_id=88721816");
   expect(res.posts[0].pageUrl).toBe(pageUrl);
+  expect(res.posts[0].rating).toBe("sketchy");
   expect(res.posts[0].contentUrl).toBe("https://img3.gelbooru.com/images/af/1d/af1dd661fab6714dffc29cb38b6b2269.png");
 });
 
@@ -61,6 +64,7 @@ test("get rule34.xxx post 2740994", async () => {
   expect(res.posts[0]).toHaveResolution([600, 800]);
   expect(res.posts.length).toBe(1);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
+  expect(res.posts[0].rating).toBe("safe");
   expect(res.posts[0].contentUrl).toContain(".rule34.xxx//images/2472/35bf31c98f53a369c047baf9bae496fb.jpeg");
 });
 
@@ -75,5 +79,6 @@ test("get xbooru.com post 834083", async () => {
   expect(res.posts[0]).toHaveResolution([1024, 1878]);
   expect(res.posts.length).toBe(1);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
+  expect(res.posts[0].rating).toBe("safe");
   expect(res.posts[0].contentUrl).toBe("https://img.xbooru.com//images/584/040dc1625c094a7d5d7b0918aa0d8324.png");
 });
