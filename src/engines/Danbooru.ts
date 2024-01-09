@@ -76,19 +76,22 @@ export default class Danbooru extends ScrapeEngineBase {
       }
 
       let category: TagCategory | undefined;
-      switch (tagElement.className) {
-        case "tag-type-3":
-          category = "copyright";
-          break;
-        case "tag-type-4":
-          category = "character";
-          break;
-        case "tag-type-1":
-          category = "artist";
-          break;
-        case "tag-type-5":
-          category = "meta";
-          break;
+      console.dir(tagElement.classList);
+      for (const className of tagElement.classList) {
+        switch (className) {
+          case "tag-type-3":
+            category = "copyright";
+            break;
+          case "tag-type-4":
+            category = "character";
+            break;
+          case "tag-type-1":
+            category = "artist";
+            break;
+          case "tag-type-5":
+            category = "meta";
+            break;
+        }
       }
 
       if (tagName) {
