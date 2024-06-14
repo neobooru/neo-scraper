@@ -1,4 +1,4 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapeEngineFeature, UploadMode } from "../ScrapeEngine.js";
 import { parseResolutionString } from "../Utility.js";
 import Cookies from "js-cookie";
 
@@ -7,6 +7,10 @@ export default class Ehentai extends ScrapeEngineBase {
   features: ScrapeEngineFeature[] = ["content", "resolution", "extra_content", "cookies"];
   notes = ["Rating is assumed to be unsafe."];
   supportedHosts = ["e-hentai.org", "exhentai.org"];
+
+  override get uploadMode(): UploadMode {
+    return "content";
+  }
 
   scrapeDocument(document: Document): ScrapeResult {
     const result = new ScrapeResult(this.name);

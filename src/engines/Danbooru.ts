@@ -1,4 +1,4 @@
-import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature } from "../ScrapeEngine.js";
+import { ScrapeEngineBase, ScrapeResult, ScrapedPost, ScrapedTag, ScrapeEngineFeature, UploadMode } from "../ScrapeEngine.js";
 import { TagCategory } from "../BooruTypes.js";
 import { createNoteFromDanbooruArticle, guessContentType } from "../Utility.js";
 
@@ -7,6 +7,10 @@ export default class Danbooru extends ScrapeEngineBase {
   features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category", "source", "notes"];
   notes = [];
   supportedHosts = ["danbooru.donmai.us", "safebooru.donmai.us"];
+
+  override get uploadMode(): UploadMode {
+    return "content";
+  }
 
   scrapeDocument(document: Document): ScrapeResult {
     const result = new ScrapeResult(this.name);

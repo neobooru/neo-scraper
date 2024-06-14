@@ -2,6 +2,7 @@ import { TagCategory, SafetyRating } from "./BooruTypes.js";
 
 export type Cookies = { [key: string]: string };
 export type ContentType = "image" | "video";
+export type UploadMode = "content" | "url";
 
 export class ScrapedPost {
   contentUrl = "";
@@ -81,6 +82,8 @@ export interface ScrapeEngine {
   notes: string[];
   supportedHosts: string[];
 
+  get uploadMode(): UploadMode;
+
   canImport(url: Location): boolean;
   scrapeDocument(document: Document): ScrapeResult;
 }
@@ -90,6 +93,10 @@ export abstract class ScrapeEngineBase implements ScrapeEngine {
   abstract features: ScrapeEngineFeature[];
   abstract notes: string[];
   abstract supportedHosts: string[];
+
+  get uploadMode(): UploadMode {
+    return "url";
+  }
 
   canImport(url: Location): boolean {
     return this.supportedHosts.indexOf(url.host) != -1;
