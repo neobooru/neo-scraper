@@ -6,7 +6,7 @@ class MediaElement {
     public readonly contentType: ContentType,
     public readonly contentUrl: string,
     public readonly size: number
-  ) {}
+  ) { }
 }
 
 export default class Fallback extends ScrapeEngineBase {
@@ -27,7 +27,7 @@ export default class Fallback extends ScrapeEngineBase {
       post.pageUrl = document.location.href;
       post.contentUrl = document.location.href;
       post.contentType = "video";
-      result.posts.push(post);
+      result.tryAddPost(post);
       return result;
     }
 
@@ -50,10 +50,16 @@ export default class Fallback extends ScrapeEngineBase {
 
     if (largestMediaElement) {
       const post = new ScrapedPost();
+      post.name = "Upload as URL";
       post.pageUrl = document.location.href;
       post.contentUrl = largestMediaElement.contentUrl;
       post.contentType = largestMediaElement.contentType;
-      result.posts.push(post);
+      result.tryAddPost(post);
+
+      const clone = Object.assign({}, post);
+      clone.name = "Upload as content";
+      clone.uploadMode = "content";
+      result.tryAddPost(clone);
     }
 
     return result;

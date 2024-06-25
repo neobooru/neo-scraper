@@ -15,7 +15,7 @@ export default class Twitter extends ScrapeEngineBase {
   name = "twitter";
   features: ScrapeEngineFeature[] = ["content"];
   notes = [];
-  supportedHosts = ["twitter.com", "mobile.twitter.com"];
+  supportedHosts = ["twitter.com", "mobile.twitter.com", "x.com"];
 
   scrapeDocument(document: Document): ScrapeResult {
     const result = new ScrapeResult(this.name);

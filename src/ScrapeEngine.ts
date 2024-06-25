@@ -5,6 +5,7 @@ export type ContentType = "image" | "video";
 export type UploadMode = "content" | "url";
 
 export class ScrapedPost {
+  name: string | undefined = undefined;
   contentUrl = "";
   pageUrl = "";
   contentType: ContentType = "image";
@@ -17,6 +18,7 @@ export class ScrapedPost {
   referrer: string | undefined;
   extraContentUrl: string | undefined;
   cookies: Cookies | undefined;
+  uploadMode: UploadMode = "url";
 }
 
 export class ScrapedTag {
@@ -30,7 +32,7 @@ export class ScrapedTag {
 }
 
 export class ScrapedNote {
-  constructor(public text: string, public polygon: number[][]) {}
+  constructor(public text: string, public polygon: number[][]) { }
 }
 
 export class ScrapeResult {
@@ -82,8 +84,6 @@ export interface ScrapeEngine {
   notes: string[];
   supportedHosts: string[];
 
-  get uploadMode(): UploadMode;
-
   canImport(url: Location): boolean;
   scrapeDocument(document: Document): ScrapeResult;
 }
@@ -93,10 +93,6 @@ export abstract class ScrapeEngineBase implements ScrapeEngine {
   abstract features: ScrapeEngineFeature[];
   abstract notes: string[];
   abstract supportedHosts: string[];
-
-  get uploadMode(): UploadMode {
-    return "url";
-  }
 
   canImport(url: Location): boolean {
     return this.supportedHosts.indexOf(url.host) != -1;

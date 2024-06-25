@@ -1,6 +1,6 @@
 {
   "name": "neo-scraper",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Scrape a booru-like post object from the DOM.",
   "type": "module",
   "main": "dist/index.js",
@@ -39,7 +39,7 @@
     "jest-ts-webcompat-resolver": "^1.0.0",
     "jsdom": "^15.2.1",
     "prettier": "2.5.1",
-    "puppeteer": "^21.5.0",
+    "puppeteer": "^22.12.0",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
@@ -52,7 +52,12 @@
     "preset": "./jest.preset.cjs",
     "resolver": "jest-ts-webcompat-resolver",
     "transform": {
-      "^.+\\.tsx?$": "ts-jest"
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.test.json"
+        }
+      ]
     },
     "moduleFileExtensions": [
       "ts",
@@ -62,11 +67,6 @@
     "testRegex": "^.+\\.test\\.ts$",
     "setupFilesAfterEnv": [
       "./src/test/jest.setup.ts"
-    ],
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.test.json"
-      }
-    }
+    ]
   }
 }
