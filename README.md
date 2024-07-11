@@ -23,3 +23,16 @@ Scrape a booru-like post object from the DOM.
 | twitter        | twitter.com, mobile.twitter.com                                                                                                          | content                                                        |                                                               |
 | zerochan       | www.zerochan.net                                                                                                                         | content, resolution, tags, tag_category                        | Rating is assumed to be safe.                                 |
 | fallback       |                                                                                                                                          | content                                                        | Tries to find the largest image or video on the current page. |
+
+## Development
+
+Build SzuruChrome with your local version of neo-scraper.
+
+```sh
+cd neo-scraper
+pnpm install
+pnpm build # or pnpm watch in another terminal
+pnpm link --global
+cd ../SzuruChrome
+pnpm dev
+```

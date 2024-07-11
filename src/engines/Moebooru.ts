@@ -13,6 +13,10 @@ export default class Moebooru extends ScrapeEngineBase {
     const post = new ScrapedPost();
     post.pageUrl = document.location.href;
 
+    if (document.location.host == "yande.re") {
+      post.uploadMode = "content";
+    }
+
     // Set image url
     const originalImageElement = document.querySelector("#highres") as HTMLAnchorElement;
     if (originalImageElement) {
