@@ -38,7 +38,7 @@ export default class Moebooru extends ScrapeEngineBase {
       const matches = el.innerText.match(regex);
       if (matches && matches.length == 3) {
         // If Source element
-        if (matches[1] == "Source") {
+        if (matches[1] == "Source" && el.children.length > 0) {
           post.sources = [(el.children[0] as HTMLAnchorElement).href];
         }
         // If Rating element
