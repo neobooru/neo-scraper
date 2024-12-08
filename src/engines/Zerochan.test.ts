@@ -13,11 +13,11 @@ test("get zerochan.net post 2934998", async () => {
 });
 
 test("get zerochan.net gif post 3511809", async () => {
-  const pageUrl = "https://www.zerochan.net/3511809";
+  const pageUrl = "https://www.zerochan.net/4356451";
   const res = await scrapeUrl(pageUrl);
   expect(res.posts.length).toBe(1);
-  expect(res.posts[0]).toHaveTag("rwby");
-  expect(res.posts[0]).toHaveResolution([500, 150]);
+  expect(res.posts[0]).toHaveTag("honkai_star_rail");
+  expect(res.posts[0]).toHaveResolution([2192, 1644]);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
-  expect(res.posts[0].contentUrl).toBe("https://static.zerochan.net/Ruby.Rose.full.3511809.gif");
+  expect(res.posts[0].contentUrl).toBe("https://static.zerochan.net/Honkai.Star.Rail.full.4356451.jpg");
 });

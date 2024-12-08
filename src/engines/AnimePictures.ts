@@ -14,7 +14,7 @@ export default class AnimePictures extends ScrapeEngineBase {
     post.pageUrl = document.location.href;
 
     // Set image url
-    const originalImageElements = Array.from(document.getElementsByClassName("download_icon"));
+    const originalImageElements = Array.from(document.getElementsByClassName("icon-download"));
 
     if (originalImageElements.length > 0) {
       post.contentUrl = (originalImageElements[0] as HTMLAnchorElement).href;

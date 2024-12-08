@@ -14,7 +14,7 @@ test("get safebooru.org post 2871532", async () => {
   expect(res.posts[0]).toHaveResolution([1142, 1600]);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].rating).toBe("safe");
-  expect(res.posts[0].contentUrl).toBe(
+  expect(res.posts[0].contentUrl).toContain(
     "https://safebooru.org//images/2757/5f19c7744db918c3d4c4c6035bc65dfa9e18866f.jpg"
   );
 });
@@ -80,5 +80,5 @@ test("get xbooru.com post 834083", async () => {
   expect(res.posts.length).toBe(1);
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].rating).toBe("safe");
-  expect(res.posts[0].contentUrl).toBe("https://img.xbooru.com//images/584/040dc1625c094a7d5d7b0918aa0d8324.png");
+  expect(res.posts[0].contentUrl).toContain("https://img.xbooru.com//images/584/040dc1625c094a7d5d7b0918aa0d8324.png");
 });

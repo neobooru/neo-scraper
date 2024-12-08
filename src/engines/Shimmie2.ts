@@ -13,18 +13,21 @@ export default class Shimmie2 extends ScrapeEngineBase {
     post.pageUrl = document.location.href;
 
     // Set image url
-    const originalImageElements = Array.from(document.querySelectorAll(".image_info > tbody > tr > td > a"))
-      .map((x) => x as HTMLAnchorElement)
-      .filter((x) => x.innerText == "Image Only" || x.innerText == "File Only");
+    // const originalImageElements = Array.from(document.querySelectorAll(".image_info > tbody > tr > td > a"))
+    //   .map((x) => x as HTMLAnchorElement)
+    //   .filter((x) => x.innerText == "Image Only" || x.innerText == "File Only");
 
-    if (originalImageElements.length > 0) {
-      post.contentUrl = originalImageElements[0].href;
-    } else {
-      const dowloadBtnEl = document.querySelector("a[download]") as HTMLAnchorElement;
-      if (dowloadBtnEl) {
-        post.contentUrl = dowloadBtnEl.href;
-      }
-    }
+    // if (originalImageElements.length > 0) {
+    //   post.contentUrl = originalImageElements[0].href;
+    // } else {
+    //   const dowloadBtnEl = document.querySelector("a[download]") as HTMLAnchorElement;
+    //   if (dowloadBtnEl) {
+    //     post.contentUrl = dowloadBtnEl.href;
+    //   }
+    // }
+
+    // @ts-expect-error
+    post.contentUrl = document.getElementById("main_image").src;
 
     // Set content type
     post.contentType = guessContentType(post.contentUrl);

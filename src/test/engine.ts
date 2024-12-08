@@ -9,7 +9,9 @@ export const MobileUserAgent = "Mozilla/5.0 (Android 12; Mobile; rv:68.0) Gecko/
  * @returns
  */
 export async function scrapeUrl(url: string) {
-  const dom = await JSDOM.fromURL(url);
+  const dom = await JSDOM.fromURL(url, {
+    userAgent: "PostmanRuntime/7.37.3",
+  });
   return scrapeDom(dom.window.document);
 }
 
@@ -19,7 +21,11 @@ export async function scrapeUrl(url: string) {
  * @param waitForSelector
  * @returns
  */
-export async function scrapeEvalUrl(url: string, waitForSelector: string, userAgent: string | undefined = undefined) {
+export async function scrapeEvalUrl(
+  url: string,
+  waitForSelector: string,
+  userAgent: string | undefined = "PostmanRuntime/7.37.3"
+) {
   await jestPuppeteer.resetPage();
 
   if (userAgent) {
@@ -27,7 +33,10 @@ export async function scrapeEvalUrl(url: string, waitForSelector: string, userAg
   }
 
   await page.goto(url);
-  await page.waitForSelector(waitForSelector, { visible: true });
+
+  const res = await page.waitForSelector(waitForSelector, { visible: true, timeout: 10_000 });
+  if (res == null) throw new Error("waitForSelector timed out.");
+
   return scrapePage(url, page);
 }
 

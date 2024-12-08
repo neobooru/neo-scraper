@@ -77,7 +77,6 @@ export default class Danbooru extends ScrapeEngineBase {
       }
 
       let category: TagCategory | undefined;
-      console.dir(tagElement.classList);
       for (const className of tagElement.classList) {
         switch (className) {
           case "tag-type-3":

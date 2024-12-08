@@ -30,9 +30,9 @@ export default class Zerochan extends ScrapeEngineBase {
     post.contentType = guessContentType(post.contentUrl);
 
     // Set resolution
-    const resSizeEl = document.querySelector("#large > p > br")?.parentNode as HTMLParagraphElement;
+    const resSizeEl = document.querySelector("#image-info")?.firstElementChild;
     if (resSizeEl) {
-      post.resolution = parseResolutionString(resSizeEl.childNodes[0].textContent);
+      post.resolution = parseResolutionString(resSizeEl.textContent?.replace("×", "x"));
     }
 
     // Set rating
