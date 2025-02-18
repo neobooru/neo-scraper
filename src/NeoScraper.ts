@@ -9,6 +9,7 @@ export default class NeoScraper {
     if (useDefaultEngines) {
       this.engines.push(
         new engines.AnimePictures(),
+        new engines.Bluesky(),
         new engines.Danbooru(),
         new engines.e621(),
         new engines.Ehentai(),
