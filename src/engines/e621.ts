@@ -46,30 +46,30 @@ export default class e621 extends ScrapeEngineBase {
     const tagEls = Array.from(document.querySelectorAll("#tag-list > ul > li")).map((x) => x as HTMLLIElement);
 
     for (const el of tagEls) {
-      const tagName = (el.querySelector(".search-tag") as HTMLAnchorElement)?.innerText;
+      const tagName = decodeURIComponent(el.getAttribute("data-name") as string);
       let category: TagCategory | undefined;
 
-      switch (el.className) {
+      switch (el.getAttribute("data-category")) {
         // https://e621.net/help/api#tags_listing
-        case "category-3":
+        case "copyright":
           category = "copyright";
           break;
-        case "category-4":
+        case "character":
           category = "character";
           break;
-        case "category-1":
+        case "artist":
           category = "artist";
           break;
-        case "category-7":
+        case "meta":
           category = "meta";
           break;
-        case "category-5":
+        case "species":
           category = "species";
           break;
-        // case "category-6":
+        // case "invalid":
         //   category = "invalid";
         //   break;
-        case "category-8":
+        case "lore":
           category = "lore";
           break;
       }
