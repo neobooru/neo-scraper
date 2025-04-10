@@ -13,7 +13,7 @@ export default class Gelbooru extends ScrapeEngineBase {
   name = "gelbooru";
   features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category", "source", "notes"];
   notes = ["Supported features might vary between hosts."];
-  supportedHosts = ["safebooru.org", "gelbooru.com", "rule34.xxx", "tbib.org", "xbooru.com"];
+  supportedHosts = ["safebooru.org", "gelbooru.com", "rule34.xxx", "tbib.org", "xbooru.com", "mspabooru.com"];
 
   private readonly classNameToCategoryMap: CategoryMap = {
     "tag-type-copyright": "copyright",
@@ -30,6 +30,7 @@ export default class Gelbooru extends ScrapeEngineBase {
       case "rule34.xxx":
       case "tbib.org":
       case "xbooru.com":
+      case "mspabooru.com":
         version = Version.v020;
         break;
       case "gelbooru.com":
