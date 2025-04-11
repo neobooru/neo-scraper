@@ -1,6 +1,6 @@
 {
   "name": "neo-scraper",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Scrape a booru-like post object from the DOM.",
   "type": "module",
   "main": "dist/index.js",

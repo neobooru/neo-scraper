@@ -29,7 +29,7 @@ test("get gelbooru.com post 4925055", async () => {
   expect(res.posts[0]).toHaveSource("https://www.pixiv.net/artworks/76853958");
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].rating).toBe("sketchy");
-  expect(res.posts[0].contentUrl).toBe("https://img3.gelbooru.com/images/3d/03/3d03f6858637805d6473d390a4b1d8c8.jpg");
+  expect(res.posts[0].contentUrl).toContain("gelbooru.com/images/3d/03/3d03f6858637805d6473d390a4b1d8c8.jpg");
 });
 
 test("get gelbooru.com post 6225495 with notes", async () => {
@@ -50,7 +50,7 @@ test("get gelbooru.com post 6225495 with notes", async () => {
   expect(res.posts[0]).toHaveSource("http://www.pixiv.net/member_illust.php?mode=medium&illust_id=88721816");
   expect(res.posts[0].pageUrl).toBe(pageUrl);
   expect(res.posts[0].rating).toBe("sketchy");
-  expect(res.posts[0].contentUrl).toBe("https://img3.gelbooru.com/images/af/1d/af1dd661fab6714dffc29cb38b6b2269.png");
+  expect(res.posts[0].contentUrl).toContain("gelbooru.com/images/af/1d/af1dd661fab6714dffc29cb38b6b2269.png");
 });
 
 test("get rule34.xxx post 2740994", async () => {

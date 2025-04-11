@@ -47,12 +47,12 @@ export default class FurAffinity extends ScrapeEngineBase {
       }
 
     // Set tags
-    post.tags = Array.from(document.querySelectorAll("section.tags-row > span.tags"))
+    post.tags = Array.from(document.querySelectorAll("section.tags-row > span.tags a"))
       .map((x) => (x as HTMLSpanElement).innerText)
       .map((x) => new ScrapedTag(x));
 
     // Set user who submitted the art as the artist
-    const submissionUser = document.querySelector<HTMLElement>(".submission-id-sub-container > a > strong")?.innerText;
+    const submissionUser = document.querySelector<HTMLElement>(".submission-id-sub-container a")?.innerText;
     if (submissionUser) {
       post.tags.push(new ScrapedTag(submissionUser, "artist"));
     }
