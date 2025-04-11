@@ -6,7 +6,7 @@ export default class Zerochan extends ScrapeEngineBase {
   name = "zerochan";
   features: ScrapeEngineFeature[] = ["content", "resolution", "tags", "tag_category"];
   notes = ["Rating is assumed to be safe."];
-  supportedHosts = ["www.zerochan.net"];
+  supportedHosts = ["zerochan.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
     const result = new ScrapeResult(this.name);

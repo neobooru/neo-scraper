@@ -32,7 +32,7 @@ export class ScrapedTag {
 }
 
 export class ScrapedNote {
-  constructor(public text: string, public polygon: number[][]) { }
+  constructor(public text: string, public polygon: number[][]) {}
 }
 
 export class ScrapeResult {
@@ -95,7 +95,7 @@ export abstract class ScrapeEngineBase implements ScrapeEngine {
   abstract supportedHosts: string[];
 
   canImport(url: Location): boolean {
-    return this.supportedHosts.indexOf(url.host) != -1;
+    return this.supportedHosts.indexOf(url.host.replace("www.", "")) != -1;
   }
 
   abstract scrapeDocument(document: Document): ScrapeResult;

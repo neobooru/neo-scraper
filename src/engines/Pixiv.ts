@@ -25,7 +25,7 @@ export default class Pixiv extends ScrapeEngineBase {
   name = "pixiv";
   features: ScrapeEngineFeature[] = ["content"];
   notes = [];
-  supportedHosts = ["pixiv.net", "www.pixiv.net"];
+  supportedHosts = ["pixiv.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
     const result = new ScrapeResult(this.name);

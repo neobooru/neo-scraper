@@ -5,7 +5,7 @@ export default class FurAffinity extends ScrapeEngineBase {
   name = "furaffinity";
   features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category"];
   notes = [];
-  supportedHosts = ["www.furaffinity.net"];
+  supportedHosts = ["furaffinity.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
     const result = new ScrapeResult(this.name);

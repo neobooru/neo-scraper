@@ -6,7 +6,7 @@ export default class Danbooru extends ScrapeEngineBase {
   name = "danbooru";
   features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category", "source", "notes"];
   notes = [];
-  supportedHosts = ["danbooru.donmai.us", "safebooru.donmai.us", "sonohara.donmai.us", "hijiribe.donmai.us", "hypnohub.net"];
+  supportedHosts = ["danbooru.donmai.us", "safebooru.donmai.us", "sonohara.donmai.us", "hijiribe.donmai.us"];
 
   scrapeDocument(document: Document): ScrapeResult {
     const result = new ScrapeResult(this.name);
