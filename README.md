@@ -5,7 +5,7 @@ Scrape a booru-like post object from the DOM.
 ## Supported sites
 
 | Engine | Sites | Features | Notes |
-|---|---|---|---|---|
+| --- | --- | --- | --- |
 | animepictures | anime-pictures.net | content, resolution, tags, tag_category | Rating is assumed to be safe. |
 | bluesky | bsky.app | content |  |
 | danbooru | danbooru.donmai.us, safebooru.donmai.us, sonohara.donmai.us, hijiribe.donmai.us | content, rating, resolution, tags, tag_category, source, notes |  |
