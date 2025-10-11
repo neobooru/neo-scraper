@@ -47,7 +47,7 @@ export default class FurAffinity extends ScrapeEngineBase {
       }
 
     // Set tags
-    post.tags = Array.from(document.querySelectorAll("section.tags-row > span.tags a"))
+    post.tags = Array.from(document.querySelectorAll("section.tags-row > span.tags a:not(.tag-block)"))
       .map((x) => (x as HTMLSpanElement).innerText)
       .map((x) => new ScrapedTag(x));
 
