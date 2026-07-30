@@ -70,6 +70,9 @@ export default class Pixiv extends ScrapeEngineBase {
       post.contentType = guessContentType(post.contentUrl);
       post.referrer = document.location.origin;
       result.tryAddPost(post);
+      if (document.querySelector('a[href*="/tags/R-18/artworks"]')) {
+        post.rating = "unsafe";
+      }
     }
 
     return result;

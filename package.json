@@ -45,8 +45,10 @@
     "typescript": "^4.9.5"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./": "./dist/"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "jest": {
     "preset": "./jest.preset.cjs",
