@@ -5,11 +5,11 @@ Scrape a booru-like post object from the DOM.
 ## Supported sites
 
 | Engine | Sites | Features | Notes |
-|---|---|---|---|---|
+|---|---|---|---|
 | animepictures | anime-pictures.net | content, resolution, tags, tag_category | Rating is assumed to be safe. |
 | bluesky | bsky.app | content |  |
 | danbooru | danbooru.donmai.us, safebooru.donmai.us, sonohara.donmai.us, hijiribe.donmai.us | content, rating, resolution, tags, tag_category, source, notes |  |
-| e621 | e621.net, e926.net | content, rating, resolution, tags, tag_category, source |  |
+| e621 | e621.net, e926.net, e6ai.net | content, rating, resolution, tags, tag_category, source |  |
 | E-hentai | e-hentai.org, exhentai.org | content, resolution, extra_content, cookies | Rating is assumed to be unsafe. |
 | furaffinity | furaffinity.net | content, rating, resolution, tags, tag_category |  |
 | gelbooru | safebooru.org, gelbooru.com, rule34.xxx, tbib.org, xbooru.com, mspabooru.com, hypnohub.net | content, rating, resolution, tags, tag_category, source, notes | Supported features might vary between hosts. |

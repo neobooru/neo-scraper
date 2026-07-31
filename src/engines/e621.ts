@@ -5,7 +5,7 @@ export default class e621 extends ScrapeEngineBase {
   name = "e621";
   features: ScrapeEngineFeature[] = ["content", "rating", "resolution", "tags", "tag_category", "source"];
   notes = [];
-  supportedHosts = ["e621.net", "e926.net"];
+  supportedHosts = ["e621.net", "e926.net", "e6ai.net"];
 
   scrapeDocument(document: Document): ScrapeResult {
     const result = new ScrapeResult(this.name);
@@ -13,7 +13,7 @@ export default class e621 extends ScrapeEngineBase {
     post.pageUrl = document.location.href;
 
     // Set image url
-    const downloadEl = document.querySelector("#image-download-link > a") as HTMLAnchorElement;
+    const downloadEl = document.querySelector(".ptbr-fullscreen-button") as HTMLAnchorElement;
     post.contentUrl = downloadEl?.href;
 
     // Set content type
