@@ -179,6 +179,7 @@ export default class Gelbooru extends ScrapeEngineBase {
     }
     // End of code duplication with Danbooru engine.
 
+    post.referrer = document.location.origin;
     result.tryAddPost(post);
 
     return result;
